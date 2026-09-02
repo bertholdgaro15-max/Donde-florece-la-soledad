@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Novela narrada — Donde florece la soledad</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top, #101827 0%, #070b12 40%, #020407 100%);
+      color: #f4f1ec;
+      font-family: Georgia, "Times New Roman", serif;
+      min-height: 100vh;
+    }
+
+    .intro {
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 20px 45px;
+    }
+
+    .obra {
+      color: #d76c78;
+      font-size: 11px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 6vw, 70px);
+      font-weight: normal;
+      letter-spacing: 7px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .subtitulo {
+      color: #777b85;
+      font-size: 14px;
+      font-style: italic;
+      letter-spacing: 2px;
+    }
+
+    .lector {
+      width: min(94%, 1100px);
+      margin: 0 auto;
+      padding-bottom: 45px;
+    }
+
+    .pdf {
+      display: block;
+      width: 100%;
+      height: 85vh;
+      min-height: 650px;
+      border: 1px solid #242932;
+      background: #0a0d12;
+    }
+
+    .alternativa {
+      text-align: center;
+      padding: 25px 20px 5px;
+      color: #777b85;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .alternativa a {
+      color: #d76c78;
+      text-decoration: none;
+    }
+
+    .alternativa a:hover {
+      color: white;
+    }
+
+    .final {
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 20px 80px;
+    }
+
+    .fin {
+      color: #d76c78;
+      font-size: 11px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .final h2 {
+      font-size: clamp(25px, 4vw, 38px);
+      font-weight: normal;
+      margin-bottom: 35px;
+    }
+
+    .boton {
+      display: inline-block;
+      color: #d9d4cf;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 2px;
+      padding: 16px 22px;
+      border: 1px solid #30343b;
+      transition: all 0.3s ease;
+    }
+
+    .boton:hover {
+      color: white;
+      border-color: #d76c78;
+      background: rgba(215, 108, 120, 0.07);
+    }
+
+    @media (max-width: 700px) {
+      .intro {
+        min-height: 260px;
+        padding: 45px 20px 35px;
+      }
+
+      h1 {
+        letter-spacing: 4px;
+      }
+
+      .lector {
+        width: 100%;
+      }
+
+      .pdf {
+        height: 75vh;
+        min-height: 500px;
+        border-left: 0;
+        border-right: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="intro">
+
+    <div class="obra">
+      DONDE FLORECE LA SOLEDAD
+    </div>
+
+    <h1>
+      NOVELA NARRADA
+    </h1>
+
+    <div class="subtitulo">
+      La historia, contada con palabras
+    </div>
+
+  </header>
+
+
+  <main class="lector">
+
+    <iframe
+      class="pdf"
+      src="../novela-narrada.pdf#view=FitH"
+      title="Novela narrada — Donde florece la soledad">
+    </iframe>
+
+    <div class="alternativa">
+      Si tu dispositivo no muestra el lector,
+      <a href="../novela-narrada.pdf" target="_blank">
+        abre la novela aquí.
+      </a>
+    </div>
+
+  </main>
+
+
+  <footer class="final">
+
+    <div class="fin">
+      FIN DE LA LECTURA
+    </div>
+
+    <h2>
+      Gracias por acompañarlos en el camino.
+    </h2>
+
+    <a class="boton" href="../">
+      ← Volver al menú
+    </a>
+
+  </footer>
+
+</body>
+</html>
