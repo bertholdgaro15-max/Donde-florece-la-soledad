@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Donde florece la soledad</title>
 
   <style>
@@ -13,16 +12,72 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       min-height: 100vh;
       background:
         radial-gradient(circle at center, #111827 0%, #070b12 45%, #020305 100%);
       color: white;
       font-family: Georgia, "Times New Roman", serif;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
-    .entrada {
+    /* ---------- PÉTALOS ---------- */
+
+    .petalo {
+      position: fixed;
+      top: -40px;
+      width: 10px;
+      height: 18px;
+      background: #8c1627;
+      border-radius: 80% 10% 80% 10%;
+      opacity: 0.65;
+      animation: caer linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .p1 { left: 12%; animation-duration: 11s; animation-delay: -3s; }
+    .p2 { left: 27%; animation-duration: 15s; animation-delay: -8s; }
+    .p3 { left: 46%; animation-duration: 13s; animation-delay: -5s; }
+    .p4 { left: 68%; animation-duration: 17s; animation-delay: -10s; }
+    .p5 { left: 84%; animation-duration: 12s; animation-delay: -6s; }
+
+    @keyframes caer {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(115vh) rotate(500deg);
+      }
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes desaparecer {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    /* ---------- PORTADA ---------- */
+
+    #portada {
       width: 100%;
       min-height: 100vh;
       display: flex;
@@ -34,7 +89,7 @@
       z-index: 2;
     }
 
-    .contenido {
+    .contenido-portada {
       animation: aparecer 2.2s ease;
     }
 
@@ -70,7 +125,6 @@
       border: 1px solid rgba(217,145,157,0.65);
       color: #e2a3ad;
       background: transparent;
-      text-decoration: none;
       text-transform: uppercase;
       letter-spacing: 0.3em;
       font-size: 0.72rem;
@@ -84,41 +138,120 @@
       box-shadow: 0 0 25px rgba(217,145,157,0.18);
     }
 
-    .petalo {
-      position: absolute;
-      top: -40px;
-      width: 10px;
-      height: 18px;
-      background: #8c1627;
-      border-radius: 80% 10% 80% 10%;
-      opacity: 0.65;
-      animation: caer linear infinite;
-      z-index: 1;
+    /* ---------- MENÚ ---------- */
+
+    #menu {
+      display: none;
+      min-height: 100vh;
+      padding: 70px 24px 90px;
+      position: relative;
+      z-index: 2;
+      animation: aparecer 1.3s ease;
     }
 
-    .p1 { left: 12%; animation-duration: 11s; animation-delay: -3s; }
-    .p2 { left: 27%; animation-duration: 15s; animation-delay: -8s; }
-    .p3 { left: 46%; animation-duration: 13s; animation-delay: -5s; }
-    .p4 { left: 68%; animation-duration: 17s; animation-delay: -10s; }
-    .p5 { left: 84%; animation-duration: 12s; animation-delay: -6s; }
-
-    @keyframes caer {
-      0% {
-        transform: translateY(-10vh) rotate(0deg);
-      }
-      100% {
-        transform: translateY(115vh) rotate(500deg);
-      }
+    .menu-contenido {
+      width: min(850px, 100%);
+      margin: 0 auto;
+      text-align: center;
     }
 
-    @keyframes aparecer {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
+    .menu-mini {
+      color: #d9919d;
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      font-size: 0.75rem;
+      margin-bottom: 18px;
+    }
+
+    .menu-titulo {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 400;
+      margin-bottom: 55px;
+    }
+
+    .grupo {
+      margin-bottom: 55px;
+    }
+
+    .grupo-titulo {
+      color: #777;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      font-size: 0.68rem;
+      margin-bottom: 22px;
+    }
+
+    .opcion {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      color: white;
+      padding: 19px 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: 0.35s;
+    }
+
+    .opcion:first-of-type {
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .opcion:hover {
+      background: rgba(255,255,255,0.025);
+      color: #e5a0ab;
+      padding-left: 25px;
+    }
+
+    .numero {
+      display: block;
+      color: #b36d78;
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .nombre {
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .secundaria .nombre {
+      text-transform: none;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+    }
+
+    .volver {
+      margin-top: 45px;
+      background: none;
+      border: none;
+      color: #777;
+      cursor: pointer;
+      font-family: Georgia, "Times New Roman", serif;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      transition: 0.3s;
+    }
+
+    .volver:hover {
+      color: #d9919d;
+    }
+
+    @media (max-width: 600px) {
+      #menu {
+        padding-top: 50px;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+
+      .opcion {
+        padding: 17px 8px;
+      }
+
+      .nombre {
+        font-size: 1rem;
       }
     }
   </style>
@@ -132,8 +265,9 @@
   <div class="petalo p4"></div>
   <div class="petalo p5"></div>
 
-  <main class="entrada">
-    <div class="contenido">
+  <!-- PORTADA -->
+  <section id="portada">
+    <div class="contenido-portada">
 
       <div class="para">Para Gé</div>
 
@@ -146,12 +280,95 @@
         Una historia de Berth para Gé
       </div>
 
-      <a class="entrar" href="#">
+      <button class="entrar" onclick="abrirMenu()">
         Entrar
-      </a>
+      </button>
 
     </div>
-  </main>
+  </section>
+
+  <!-- MENÚ -->
+  <section id="menu">
+    <div class="menu-contenido">
+
+      <div class="menu-mini">Para Gé</div>
+
+      <div class="menu-titulo">
+        Donde florece la soledad
+      </div>
+
+      <div class="grupo">
+        <div class="grupo-titulo">La historia</div>
+
+        <a class="opcion" href="prologo.pdf" target="_blank">
+          <span class="numero">Prólogo</span>
+          <span class="nombre">El comienzo</span>
+        </a>
+
+        <a class="opcion" href="capitulo-1-el-asilo.pdf" target="_blank">
+          <span class="numero">Capítulo 1</span>
+          <span class="nombre">El asilo</span>
+        </a>
+
+        <a class="opcion" href="capitulo-2-el-museo.pdf" target="_blank">
+          <span class="numero">Capítulo 2</span>
+          <span class="nombre">El museo</span>
+        </a>
+
+        <a class="opcion" href="capitulo-3-la-soledad.pdf" target="_blank">
+          <span class="numero">Capítulo 3</span>
+          <span class="nombre">La soledad</span>
+        </a>
+
+        <a class="opcion" href="epilogo.pdf" target="_blank">
+          <span class="numero">Epílogo</span>
+          <span class="nombre">El bucle</span>
+        </a>
+      </div>
+
+      <div class="grupo">
+        <div class="grupo-titulo">Más allá de la historia</div>
+
+        <a class="opcion secundaria" href="novela-narrada.pdf" target="_blank">
+          <span class="nombre">Novela narrada</span>
+        </a>
+
+        <a class="opcion secundaria" href="detras-de-donde-florece-la-soledad.pdf" target="_blank">
+          <span class="nombre">Detrás de Donde florece la soledad</span>
+        </a>
+      </div>
+
+      <button class="volver" onclick="volverPortada()">
+        ← Volver a la portada
+      </button>
+
+    </div>
+  </section>
+
+  <script>
+    function abrirMenu() {
+      const portada = document.getElementById("portada");
+      const menu = document.getElementById("menu");
+
+      portada.style.animation = "desaparecer 0.6s ease forwards";
+
+      setTimeout(() => {
+        portada.style.display = "none";
+        menu.style.display = "block";
+        window.scrollTo(0, 0);
+      }, 600);
+    }
+
+    function volverPortada() {
+      const portada = document.getElementById("portada");
+      const menu = document.getElementById("menu");
+
+      menu.style.display = "none";
+      portada.style.display = "flex";
+      portada.style.animation = "aparecer 1s ease";
+      window.scrollTo(0, 0);
+    }
+  </script>
 
 </body>
 </html>
