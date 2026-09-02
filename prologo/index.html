@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Prólogo — Donde florece la soledad</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #030508;
+      color: white;
+      font-family: Georgia, "Times New Roman", serif;
+      overflow-x: hidden;
+    }
+
+    /* CABECERA */
+
+    .cabecera {
+      min-height: 38vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px 45px;
+      background:
+        radial-gradient(circle at center, #111827 0%, #070b12 50%, #030508 100%);
+    }
+
+    .cabecera-contenido {
+      animation: aparecer 1.5s ease;
+    }
+
+    .historia {
+      color: #b36d78;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .indicacion {
+      color: #777;
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      margin-top: 25px;
+      font-style: italic;
+    }
+
+    /* LECTOR */
+
+    .lector {
+      width: 100%;
+      padding-bottom: 90px;
+    }
+
+    .pagina {
+      display: block;
+      width: min(100%, 1000px);
+      height: auto;
+      margin: 0 auto;
+    }
+
+    /* FINAL */
+
+    .final {
+      min-height: 45vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 70px 25px;
+      background:
+        linear-gradient(to bottom, #030508, #070b12);
+    }
+
+    .fin {
+      color: #b36d78;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      font-size: 0.7rem;
+      margin-bottom: 18px;
+    }
+
+    .final h2 {
+      font-weight: 400;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      letter-spacing: 0.08em;
+      margin-bottom: 45px;
+    }
+
+    .navegacion {
+      display: flex;
+      gap: 35px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .boton {
+      color: #aaa;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.68rem;
+      padding: 14px 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: 0.35s;
+    }
+
+    .boton:hover {
+      color: #e5a0ab;
+      border-color: #b36d78;
+      background: rgba(179,109,120,0.05);
+    }
+
+    .continuar {
+      color: #d9919d;
+      border-color: rgba(217,145,157,0.35);
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .cabecera {
+        min-height: 30vh;
+        padding-top: 45px;
+      }
+
+      .pagina {
+        width: 100%;
+      }
+
+      .lector {
+        padding-bottom: 50px;
+      }
+
+      .final {
+        min-height: 40vh;
+      }
+
+      .navegacion {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .boton {
+        width: 100%;
+        max-width: 310px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="cabecera">
+
+    <div class="cabecera-contenido">
+
+      <div class="historia">
+        Donde florece la soledad
+      </div>
+
+      <h1>Prólogo</h1>
+
+      <div class="indicacion">
+        Desliza para comenzar
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <main class="lector">
+
+    <img
+      class="pagina"
+      src="1.-%20Portada%20pr%C3%B3logo.jpg"
+      alt="Portada del prólogo"
+    >
+
+    <img
+      class="pagina"
+      src="2.-%20pro.jpg"
+      alt="Prólogo página 2"
+      loading="lazy"
+    >
+
+    <img
+      class="pagina"
+      src="3.-%20pro.jpg"
+      alt="Prólogo página 3"
+      loading="lazy"
+    >
+
+    <img
+      class="pagina"
+      src="4.-%20pro.jpg"
+      alt="Prólogo página 4"
+      loading="lazy"
+    >
+
+    <img
+      class="pagina"
+      src="5.-%20pro.jpg"
+      alt="Prólogo página 5"
+      loading="lazy"
+    >
+
+    <img
+      class="pagina"
+      src="6.-%20pro.jpg"
+      alt="Prólogo página 6"
+      loading="lazy"
+    >
+
+  </main>
+
+
+  <footer class="final">
+
+    <div class="fin">
+      Fin del prólogo
+    </div>
+
+    <h2>
+      La historia apenas comienza.
+    </h2>
+
+    <div class="navegacion">
+
+      <a class="boton" href="../">
+        ← Volver al menú
+      </a>
+
+      <a class="boton continuar" href="../capitulo-1-el-asilo.pdf">
+        Continuar al Capítulo 1 →
+      </a>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
