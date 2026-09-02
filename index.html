@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Donde florece la soledad</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at center, #111827 0%, #070b12 45%, #020305 100%);
+      color: white;
+      font-family: Georgia, "Times New Roman", serif;
+      overflow: hidden;
+    }
+
+    .entrada {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .contenido {
+      animation: aparecer 2.2s ease;
+    }
+
+    .para {
+      color: #d9919d;
+      font-size: 0.85rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      line-height: 1.25;
+      font-size: clamp(2.2rem, 7vw, 5rem);
+      text-shadow: 0 0 30px rgba(255,255,255,0.08);
+    }
+
+    .subtitulo {
+      color: #aaa;
+      font-style: italic;
+      margin-top: 20px;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+    }
+
+    .entrar {
+      display: inline-block;
+      margin-top: 55px;
+      padding: 13px 32px;
+      border: 1px solid rgba(217,145,157,0.65);
+      color: #e2a3ad;
+      background: transparent;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+
+    .entrar:hover {
+      color: white;
+      border-color: white;
+      box-shadow: 0 0 25px rgba(217,145,157,0.18);
+    }
+
+    .petalo {
+      position: absolute;
+      top: -40px;
+      width: 10px;
+      height: 18px;
+      background: #8c1627;
+      border-radius: 80% 10% 80% 10%;
+      opacity: 0.65;
+      animation: caer linear infinite;
+      z-index: 1;
+    }
+
+    .p1 { left: 12%; animation-duration: 11s; animation-delay: -3s; }
+    .p2 { left: 27%; animation-duration: 15s; animation-delay: -8s; }
+    .p3 { left: 46%; animation-duration: 13s; animation-delay: -5s; }
+    .p4 { left: 68%; animation-duration: 17s; animation-delay: -10s; }
+    .p5 { left: 84%; animation-duration: 12s; animation-delay: -6s; }
+
+    @keyframes caer {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(115vh) rotate(500deg);
+      }
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="petalo p1"></div>
+  <div class="petalo p2"></div>
+  <div class="petalo p3"></div>
+  <div class="petalo p4"></div>
+  <div class="petalo p5"></div>
+
+  <main class="entrada">
+    <div class="contenido">
+
+      <div class="para">Para Gé</div>
+
+      <h1>
+        Donde florece<br>
+        la soledad
+      </h1>
+
+      <div class="subtitulo">
+        Una historia de Berth para Gé
+      </div>
+
+      <a class="entrar" href="#">
+        Entrar
+      </a>
+
+    </div>
+  </main>
+
+</body>
+</html>
