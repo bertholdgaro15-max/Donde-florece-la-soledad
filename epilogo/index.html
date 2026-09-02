@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Epílogo — Donde florece la soledad</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(
+          circle at top,
+          #101827 0%,
+          #070b12 38%,
+          #020407 75%,
+          #000000 100%
+        );
+      color: #f4f1ec;
+      font-family: Georgia, "Times New Roman", serif;
+      min-height: 100vh;
+    }
+
+    /* PORTADA DE LA SECCIÓN */
+
+    .intro {
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px 50px;
+    }
+
+    .obra {
+      color: #d76c78;
+      font-size: 11px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: clamp(48px, 7vw, 82px);
+      font-weight: normal;
+      letter-spacing: 9px;
+      line-height: 1;
+      margin-bottom: 26px;
+    }
+
+    .subtitulo {
+      color: #777b85;
+      font-size: 14px;
+      font-style: italic;
+      letter-spacing: 2px;
+    }
+
+    /* LECTOR */
+
+    .lector {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #010305;
+      padding-bottom: 40px;
+    }
+
+    .pagina {
+      display: block;
+      width: min(100%, 900px);
+      height: auto;
+      margin: 0 auto;
+    }
+
+    /* FINAL */
+
+    .final {
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 20px 100px;
+    }
+
+    .fin {
+      color: #d76c78;
+      font-size: 11px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .final h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: normal;
+      letter-spacing: 2px;
+      margin-bottom: 42px;
+    }
+
+    .navegacion {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .boton {
+      display: inline-block;
+      color: #d9d4cf;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 2px;
+      padding: 16px 22px;
+      border: 1px solid #30343b;
+      transition: all 0.3s ease;
+    }
+
+    .boton:hover {
+      color: white;
+      border-color: #d76c78;
+      background: rgba(215, 108, 120, 0.07);
+    }
+
+    .boton.siguiente {
+      color: #e88791;
+      border-color: #67363d;
+    }
+
+    .boton.siguiente:hover {
+      color: white;
+      border-color: #d76c78;
+      background: rgba(215, 108, 120, 0.12);
+    }
+
+    @media (max-width: 600px) {
+      .intro {
+        min-height: 300px;
+        padding: 50px 20px 40px;
+      }
+
+      h1 {
+        letter-spacing: 5px;
+      }
+
+      .obra {
+        letter-spacing: 4px;
+      }
+
+      .pagina {
+        width: 100%;
+      }
+
+      .final {
+        min-height: 350px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="intro">
+
+    <div class="obra">
+      DONDE FLORECE LA SOLEDAD
+    </div>
+
+    <h1>
+      EPÍLOGO
+    </h1>
+
+    <div class="subtitulo">
+      Desliza para continuar
+    </div>
+
+  </header>
+
+
+  <main class="lector">
+
+    <img
+      class="pagina"
+      src="0.Portada%20ep%C3%ADlogo.jpg"
+      alt="Portada del Epílogo"
+    >
+
+    <img class="pagina" src="1..jpg" alt="Página 1" loading="lazy">
+    <img class="pagina" src="2..jpg" alt="Página 2" loading="lazy">
+    <img class="pagina" src="3..jpg" alt="Página 3" loading="lazy">
+    <img class="pagina" src="4..jpg" alt="Página 4" loading="lazy">
+    <img class="pagina" src="5..jpg" alt="Página 5" loading="lazy">
+    <img class="pagina" src="6..jpg" alt="Página 6" loading="lazy">
+    <img class="pagina" src="7..jpg" alt="Página 7" loading="lazy">
+    <img class="pagina" src="8..jpg" alt="Página 8" loading="lazy">
+    <img class="pagina" src="9..jpg" alt="Página 9" loading="lazy">
+
+  </main>
+
+
+  <footer class="final">
+
+    <div class="fin">
+      FIN
+    </div>
+
+    <h2>
+      Donde florece la soledad.
+    </h2>
+
+    <div class="navegacion">
+
+      <a class="boton" href="../">
+        ← Volver al menú
+      </a>
+
+      <a
+        class="boton siguiente"
+        href="../detras-de-donde-florece-la-soledad.pdf"
+      >
+        Descubrir lo que hay detrás →
+      </a>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
