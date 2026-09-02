@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Donde florece la soledad</title>
 
   <style>
@@ -23,6 +24,40 @@
       color: white;
       font-family: Georgia, "Times New Roman", serif;
       overflow-x: hidden;
+    }
+
+    /* ---------- ANIMACIONES ---------- */
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes desaparecer {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes caer {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+      }
+
+      100% {
+        transform: translateY(115vh) rotate(500deg);
+      }
     }
 
     /* ---------- PÉTALOS ---------- */
@@ -46,35 +81,6 @@
     .p4 { left: 68%; animation-duration: 17s; animation-delay: -10s; }
     .p5 { left: 84%; animation-duration: 12s; animation-delay: -6s; }
 
-    @keyframes caer {
-      0% {
-        transform: translateY(-10vh) rotate(0deg);
-      }
-      100% {
-        transform: translateY(115vh) rotate(500deg);
-      }
-    }
-
-    @keyframes aparecer {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes desaparecer {
-      from {
-        opacity: 1;
-      }
-      to {
-        opacity: 0;
-      }
-    }
-
     /* ---------- PORTADA ---------- */
 
     #portada {
@@ -90,7 +96,7 @@
     }
 
     .contenido-portada {
-      animation: aparecer 2.2s ease;
+      animation: aparecer 2s ease;
     }
 
     .para {
@@ -136,6 +142,51 @@
       color: white;
       border-color: white;
       box-shadow: 0 0 25px rgba(217,145,157,0.18);
+    }
+
+    /* ---------- TARJETA ---------- */
+
+    #tarjeta {
+      display: none;
+      min-height: 100vh;
+      padding: 40px 20px 55px;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      animation: aparecer 1.2s ease;
+    }
+
+    .tarjeta-contenido {
+      width: min(900px, 100%);
+      margin: 0 auto;
+    }
+
+    .tarjeta-imagen {
+      display: block;
+      width: min(100%, 760px);
+      height: auto;
+      margin: 0 auto;
+      border-radius: 4px;
+      box-shadow: 0 0 50px rgba(0,0,0,0.35);
+    }
+
+    .comenzar {
+      display: inline-block;
+      margin-top: 35px;
+      padding: 14px 30px;
+      border: 1px solid rgba(217,145,157,0.55);
+      background: transparent;
+      color: #e2a3ad;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: 0.35s;
+    }
+
+    .comenzar:hover {
+      color: white;
+      border-color: white;
     }
 
     /* ---------- MENÚ ---------- */
@@ -242,6 +293,14 @@
     }
 
     @media (max-width: 600px) {
+      #tarjeta {
+        padding: 20px 12px 40px;
+      }
+
+      .tarjeta-imagen {
+        width: 100%;
+      }
+
       #menu {
         padding-top: 50px;
       }
@@ -266,10 +325,14 @@
   <div class="petalo p5"></div>
 
   <!-- PORTADA -->
+
   <section id="portada">
+
     <div class="contenido-portada">
 
-      <div class="para">Para Gé</div>
+      <div class="para">
+        Para Gé
+      </div>
 
       <h1>
         Donde florece<br>
@@ -280,94 +343,171 @@
         Una historia de Berth para Gé
       </div>
 
-      <button class="entrar" onclick="abrirMenu()">
+      <button class="entrar" onclick="abrirTarjeta()">
         Entrar
       </button>
 
     </div>
+
   </section>
 
+
+  <!-- TARJETA DE CUMPLEAÑOS -->
+
+  <section id="tarjeta">
+
+    <div class="tarjeta-contenido">
+
+      <img
+        class="tarjeta-imagen"
+        src="tarjeta-cumpleanos.png"
+        alt="Feliz cumpleaños Gé"
+      >
+
+      <button class="comenzar" onclick="abrirMenu()">
+        Comenzar
+      </button>
+
+    </div>
+
+  </section>
+
+
   <!-- MENÚ -->
+
   <section id="menu">
+
     <div class="menu-contenido">
 
-      <div class="menu-mini">Para Gé</div>
+      <div class="menu-mini">
+        Para Gé
+      </div>
 
       <div class="menu-titulo">
         Donde florece la soledad
       </div>
 
       <div class="grupo">
-        <div class="grupo-titulo">La historia</div>
 
-        <a class="opcion" href="prologo.pdf" target="_blank">
+        <div class="grupo-titulo">
+          La historia
+        </div>
+
+        <a class="opcion" href="prologo/">
           <span class="numero">Prólogo</span>
           <span class="nombre">El comienzo</span>
         </a>
 
-        <a class="opcion" href="capitulo-1-el-asilo.pdf" target="_blank">
+        <a class="opcion" href="capitulo-1/">
           <span class="numero">Capítulo 1</span>
           <span class="nombre">El asilo</span>
         </a>
 
-        <a class="opcion" href="capitulo-2-el-museo.pdf" target="_blank">
+        <a class="opcion" href="capitulo-2/">
           <span class="numero">Capítulo 2</span>
           <span class="nombre">El museo</span>
         </a>
 
-        <a class="opcion" href="capitulo-3-la-soledad.pdf" target="_blank">
+        <a class="opcion" href="capitulo-3/">
           <span class="numero">Capítulo 3</span>
           <span class="nombre">La soledad</span>
         </a>
 
-        <a class="opcion" href="epilogo.pdf" target="_blank">
+        <a class="opcion" href="epilogo/">
           <span class="numero">Epílogo</span>
           <span class="nombre">El bucle</span>
         </a>
+
       </div>
+
 
       <div class="grupo">
-        <div class="grupo-titulo">Más allá de la historia</div>
 
-        <a class="opcion secundaria" href="novela-narrada.pdf" target="_blank">
-          <span class="nombre">Novela narrada</span>
+        <div class="grupo-titulo">
+          Más allá de la historia
+        </div>
+
+        <a class="opcion secundaria" href="novela/">
+          <span class="nombre">
+            Novela narrada
+          </span>
         </a>
 
-        <a class="opcion secundaria" href="detras-de-donde-florece-la-soledad.pdf" target="_blank">
-          <span class="nombre">Detrás de Donde florece la soledad</span>
+        <a class="opcion secundaria" href="detras/">
+          <span class="nombre">
+            Detrás de Donde florece la soledad
+          </span>
         </a>
+
       </div>
 
-      <button class="volver" onclick="volverPortada()">
-        ← Volver a la portada
+
+      <button class="volver" onclick="volverTarjeta()">
+        ← Volver
       </button>
 
     </div>
+
   </section>
 
-  <script>
-    function abrirMenu() {
-      const portada = document.getElementById("portada");
-      const menu = document.getElementById("menu");
 
-      portada.style.animation = "desaparecer 0.6s ease forwards";
+  <script>
+
+    function abrirTarjeta() {
+
+      const portada = document.getElementById("portada");
+      const tarjeta = document.getElementById("tarjeta");
+
+      portada.style.animation =
+        "desaparecer 0.6s ease forwards";
 
       setTimeout(() => {
+
         portada.style.display = "none";
-        menu.style.display = "block";
+        tarjeta.style.display = "block";
+
         window.scrollTo(0, 0);
+
       }, 600);
+
     }
 
-    function volverPortada() {
-      const portada = document.getElementById("portada");
+
+    function abrirMenu() {
+
+      const tarjeta = document.getElementById("tarjeta");
+      const menu = document.getElementById("menu");
+
+      tarjeta.style.animation =
+        "desaparecer 0.6s ease forwards";
+
+      setTimeout(() => {
+
+        tarjeta.style.display = "none";
+        menu.style.display = "block";
+
+        window.scrollTo(0, 0);
+
+      }, 600);
+
+    }
+
+
+    function volverTarjeta() {
+
+      const tarjeta = document.getElementById("tarjeta");
       const menu = document.getElementById("menu");
 
       menu.style.display = "none";
-      portada.style.display = "flex";
-      portada.style.animation = "aparecer 1s ease";
+      tarjeta.style.display = "block";
+
+      tarjeta.style.animation =
+        "aparecer 1s ease";
+
       window.scrollTo(0, 0);
+
     }
+
   </script>
 
 </body>
