@@ -236,7 +236,7 @@
         ← Volver al menú
       </a>
 
-      <a class="boton continuar" href="../epilogo.pdf">
+      <a class="boton continuar" href="../epilogo/">
         Continuar al Epílogo →
       </a>
 
@@ -249,19 +249,10 @@
     const lector = document.getElementById("lector");
 
     for (let i = 1; i <= 48; i++) {
-
-      let archivo;
-
-      if (i === 48) {
-        archivo = "48-.jpg";
-      } else {
-        archivo = i + ".jpg";
-      }
-
       const imagen = document.createElement("img");
 
       imagen.className = "pagina";
-      imagen.src = archivo;
+      imagen.src = i + ".jpg";
       imagen.alt = "Página " + i;
       imagen.loading = "lazy";
 
