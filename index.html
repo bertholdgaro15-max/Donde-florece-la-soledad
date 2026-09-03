@@ -81,6 +81,31 @@
     .p4 { left: 68%; animation-duration: 17s; animation-delay: -10s; }
     .p5 { left: 84%; animation-duration: 12s; animation-delay: -6s; }
 
+    /* ---------- CONTROL DE AUDIO ---------- */
+
+    .control-audio {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(3,5,8,0.72);
+      color: #d9d4cf;
+      font-size: 16px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: 0.3s;
+    }
+
+    .control-audio:hover {
+      color: white;
+      border-color: #b36d78;
+      background: rgba(179,109,120,0.10);
+    }
+
     /* ---------- PORTADA ---------- */
 
     #portada {
@@ -312,17 +337,57 @@
       .nombre {
         font-size: 1rem;
       }
+
+      .control-audio {
+        top: 14px;
+        right: 14px;
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- AUDIOS -->
+
+  <audio
+    id="audio-viento"
+    src="Audios/Wind%20Sound.mp3"
+    loop
+    preload="auto">
+  </audio>
+
+  <audio
+    id="audio-main"
+    src="Audios/La%20soledad%20-%20Main%20theme.mp3"
+    loop
+    preload="auto">
+  </audio>
+
+
+  <!-- CONTROL DE AUDIO -->
+
+  <button
+    id="control-audio"
+    class="control-audio"
+    onclick="alternarSonido()"
+    aria-label="Activar o silenciar sonido"
+    title="Activar o silenciar sonido">
+    🔊
+  </button>
+
+
+  <!-- PÉTALOS -->
+
   <div class="petalo p1"></div>
   <div class="petalo p2"></div>
   <div class="petalo p3"></div>
   <div class="petalo p4"></div>
   <div class="petalo p5"></div>
+
 
   <!-- PORTADA -->
 
@@ -453,10 +518,125 @@
 
   <script>
 
+    const audioViento = document.getElementById("audio-viento");
+    const audioMain = document.getElementById("audio-main");
+    const controlAudio = document.getElementById("control-audio");
+
+    const volumenViento = 0.28;
+    const volumenMain = 0.22;
+
+    let silenciado =
+      localStorage.getItem("sonidoSilenciado") === "true";
+
+    audioViento.muted = silenciado;
+    audioMain.muted = silenciado;
+
+    actualizarIconoSonido();
+
+
+    /* ---------- FADE IN ---------- */
+
+    function fadeIn(audio, volumenFinal, duracion = 1800) {
+
+      clearInterval(audio.fadeInterval);
+
+      audio.volume = 0;
+
+      const pasos = 40;
+      const intervalo = duracion / pasos;
+      const incremento = volumenFinal / pasos;
+
+      audio.play().catch(() => {});
+
+      audio.fadeInterval = setInterval(() => {
+
+        const nuevoVolumen =
+          Math.min(audio.volume + incremento, volumenFinal);
+
+        audio.volume = nuevoVolumen;
+
+        if (nuevoVolumen >= volumenFinal) {
+          clearInterval(audio.fadeInterval);
+        }
+
+      }, intervalo);
+    }
+
+
+    /* ---------- FADE OUT ---------- */
+
+    function fadeOut(audio, duracion = 1800) {
+
+      clearInterval(audio.fadeInterval);
+
+      if (audio.paused) return;
+
+      const volumenInicial = audio.volume;
+      const pasos = 40;
+      const intervalo = duracion / pasos;
+      const decremento = volumenInicial / pasos;
+
+      audio.fadeInterval = setInterval(() => {
+
+        const nuevoVolumen =
+          Math.max(audio.volume - decremento, 0);
+
+        audio.volume = nuevoVolumen;
+
+        if (nuevoVolumen <= 0) {
+
+          clearInterval(audio.fadeInterval);
+
+          audio.pause();
+        }
+
+      }, intervalo);
+    }
+
+
+    /* ---------- CONTROL SONIDO ---------- */
+
+    function alternarSonido() {
+
+      silenciado = !silenciado;
+
+      audioViento.muted = silenciado;
+      audioMain.muted = silenciado;
+
+      localStorage.setItem(
+        "sonidoSilenciado",
+        silenciado
+      );
+
+      actualizarIconoSonido();
+    }
+
+
+    function actualizarIconoSonido() {
+
+      controlAudio.textContent =
+        silenciado ? "🔇" : "🔊";
+
+      controlAudio.title =
+        silenciado ? "Activar sonido" : "Silenciar sonido";
+    }
+
+
+    /* ---------- ENTRAR ---------- */
+
     function abrirTarjeta() {
 
       const portada = document.getElementById("portada");
       const tarjeta = document.getElementById("tarjeta");
+
+      /*
+        El viento comienza SOLO cuando Gé pulsa Entrar.
+        Este clic permite que el navegador autorice el audio.
+      */
+
+      if (audioViento.paused) {
+        fadeIn(audioViento, volumenViento, 1800);
+      }
 
       portada.style.animation =
         "desaparecer 0.6s ease forwards";
@@ -464,19 +644,33 @@
       setTimeout(() => {
 
         portada.style.display = "none";
+
         tarjeta.style.display = "block";
+        tarjeta.style.animation =
+          "aparecer 1.2s ease";
 
         window.scrollTo(0, 0);
 
       }, 600);
-
     }
 
+
+    /* ---------- COMENZAR / IR AL MENÚ ---------- */
 
     function abrirMenu() {
 
       const tarjeta = document.getElementById("tarjeta");
       const menu = document.getElementById("menu");
+
+      /*
+        Empieza el Main Theme en el mismo clic de Comenzar,
+        mientras el viento va desapareciendo.
+      */
+
+      audioMain.currentTime = 0;
+
+      fadeOut(audioViento, 1800);
+      fadeIn(audioMain, volumenMain, 1800);
 
       tarjeta.style.animation =
         "desaparecer 0.6s ease forwards";
@@ -484,29 +678,80 @@
       setTimeout(() => {
 
         tarjeta.style.display = "none";
+
         menu.style.display = "block";
+        menu.style.animation =
+          "aparecer 1.3s ease";
 
         window.scrollTo(0, 0);
 
       }, 600);
-
     }
 
+
+    /* ---------- VOLVER A LA TARJETA ---------- */
 
     function volverTarjeta() {
 
       const tarjeta = document.getElementById("tarjeta");
       const menu = document.getElementById("menu");
 
-      menu.style.display = "none";
-      tarjeta.style.display = "block";
+      /*
+        Si Gé vuelve desde el menú,
+        regresamos suavemente del Main Theme al viento.
+      */
 
-      tarjeta.style.animation =
-        "aparecer 1s ease";
+      fadeOut(audioMain, 1600);
+      fadeIn(audioViento, volumenViento, 1600);
 
-      window.scrollTo(0, 0);
+      menu.style.animation =
+        "desaparecer 0.5s ease forwards";
 
+      setTimeout(() => {
+
+        menu.style.display = "none";
+
+        tarjeta.style.display = "block";
+        tarjeta.style.animation =
+          "aparecer 1s ease";
+
+        window.scrollTo(0, 0);
+
+      }, 500);
     }
+
+
+    /* ---------- SALIR DEL MENÚ ---------- */
+
+    document.querySelectorAll(".opcion").forEach(enlace => {
+
+      enlace.addEventListener("click", function(evento) {
+
+        /*
+          Ctrl / Cmd / clic central:
+          dejamos que el navegador abra normalmente.
+        */
+
+        if (
+          evento.ctrlKey ||
+          evento.metaKey ||
+          evento.shiftKey ||
+          evento.button === 1
+        ) {
+          return;
+        }
+
+        evento.preventDefault();
+
+        const destino = this.href;
+
+        fadeOut(audioMain, 650);
+
+        setTimeout(() => {
+          window.location.href = destino;
+        }, 650);
+      });
+    });
 
   </script>
 
