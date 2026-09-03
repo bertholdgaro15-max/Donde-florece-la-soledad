@@ -242,7 +242,7 @@
         ← Volver al menú
       </a>
 
-      <a class="boton continuar" href="../capitulo-3-la-soledad.pdf">
+      <a class="boton continuar" href="../capitulo-3/">
         Continuar al Capítulo 3 →
       </a>
 
@@ -255,19 +255,10 @@
     const lector = document.getElementById("lector");
 
     for (let i = 1; i <= 48; i++) {
-
-      let archivo;
-
-      if (i === 10 || i === 12) {
-        archivo = i + ".-.jpg";
-      } else {
-        archivo = i + ".jpg";
-      }
-
       const imagen = document.createElement("img");
 
       imagen.className = "pagina";
-      imagen.src = archivo;
+      imagen.src = i + ".jpg";
       imagen.alt = "Página " + i;
       imagen.loading = "lazy";
 
