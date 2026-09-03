@@ -71,6 +71,31 @@
       font-style: italic;
     }
 
+    /* CONTROL DE AUDIO */
+
+    .control-audio {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 100;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(3,5,8,0.72);
+      color: #d9d4cf;
+      font-size: 16px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: 0.3s;
+    }
+
+    .control-audio:hover {
+      color: white;
+      border-color: #b36d78;
+      background: rgba(179,109,120,0.10);
+    }
+
     .lector {
       width: 100%;
       padding-bottom: 90px;
@@ -180,11 +205,38 @@
         width: 100%;
         max-width: 310px;
       }
+
+      .control-audio {
+        top: 14px;
+        right: 14px;
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- AUDIO DEL CAPÍTULO -->
+
+  <audio
+    id="audio-capitulo"
+    src="../Audios/La%20soledad%20-%20Music%20box%20theme.mp3"
+    loop
+    preload="auto">
+  </audio>
+
+  <button
+    id="control-audio"
+    class="control-audio"
+    onclick="alternarSonido()"
+    aria-label="Activar o silenciar sonido"
+    title="Activar o silenciar sonido">
+    🔊
+  </button>
+
 
   <header class="cabecera">
 
@@ -232,15 +284,15 @@
 
     <div class="navegacion">
 
-      <a class="boton" href="../capitulo-2/">
+      <a class="boton enlace-salida" href="../capitulo-2/">
         ← Volver al Capítulo 2
       </a>
 
-      <a class="boton" href="../">
+      <a class="boton enlace-salida" href="../">
         Volver al menú
       </a>
 
-      <a class="boton continuar" href="../epilogo/">
+      <a class="boton continuar enlace-salida" href="../epilogo/">
         Continuar al Epílogo →
       </a>
 
@@ -250,9 +302,13 @@
 
 
   <script>
+
+    /* ---------- CARGAR PÁGINAS ---------- */
+
     const lector = document.getElementById("lector");
 
     for (let i = 1; i <= 48; i++) {
+
       const imagen = document.createElement("img");
 
       imagen.className = "pagina";
@@ -262,6 +318,247 @@
 
       lector.appendChild(imagen);
     }
+
+
+    /* ---------- AUDIO ---------- */
+
+    const audioCapitulo =
+      document.getElementById("audio-capitulo");
+
+    const controlAudio =
+      document.getElementById("control-audio");
+
+    const volumenCapitulo = 0.22;
+
+    let silenciado =
+      localStorage.getItem("sonidoSilenciado") === "true";
+
+    audioCapitulo.muted = silenciado;
+    audioCapitulo.volume = 0;
+
+    actualizarIconoSonido();
+
+
+    /* ---------- FADE IN ---------- */
+
+    function fadeIn(audio, volumenFinal, duracion = 1800) {
+
+      clearInterval(audio.fadeInterval);
+
+      const pasos = 40;
+      const intervalo = duracion / pasos;
+
+      const volumenInicial = audio.volume;
+
+      const incremento =
+        (volumenFinal - volumenInicial) / pasos;
+
+      const reproduccion = audio.play();
+
+      if (reproduccion !== undefined) {
+
+        reproduccion.catch(() => {
+          /*
+            Si el navegador bloquea autoplay,
+            se intentará de nuevo con la primera interacción.
+          */
+        });
+      }
+
+      audio.fadeInterval = setInterval(() => {
+
+        if (audio.paused) {
+          clearInterval(audio.fadeInterval);
+          return;
+        }
+
+        const nuevoVolumen =
+          Math.min(
+            audio.volume + incremento,
+            volumenFinal
+          );
+
+        audio.volume = nuevoVolumen;
+
+        if (nuevoVolumen >= volumenFinal) {
+
+          audio.volume = volumenFinal;
+
+          clearInterval(audio.fadeInterval);
+        }
+
+      }, intervalo);
+    }
+
+
+    /* ---------- FADE OUT ---------- */
+
+    function fadeOut(audio, duracion = 700) {
+
+      clearInterval(audio.fadeInterval);
+
+      if (audio.paused) return;
+
+      const volumenInicial = audio.volume;
+
+      const pasos = 30;
+      const intervalo = duracion / pasos;
+
+      const decremento =
+        volumenInicial / pasos;
+
+      audio.fadeInterval = setInterval(() => {
+
+        const nuevoVolumen =
+          Math.max(
+            audio.volume - decremento,
+            0
+          );
+
+        audio.volume = nuevoVolumen;
+
+        if (nuevoVolumen <= 0) {
+
+          audio.volume = 0;
+
+          clearInterval(audio.fadeInterval);
+
+          audio.pause();
+        }
+
+      }, intervalo);
+    }
+
+
+    /* ---------- CONTROL DE SONIDO ---------- */
+
+    function alternarSonido() {
+
+      silenciado = !silenciado;
+
+      audioCapitulo.muted = silenciado;
+
+      localStorage.setItem(
+        "sonidoSilenciado",
+        silenciado
+      );
+
+      actualizarIconoSonido();
+
+      if (!silenciado && audioCapitulo.paused) {
+        iniciarAudio();
+      }
+    }
+
+
+    function actualizarIconoSonido() {
+
+      controlAudio.textContent =
+        silenciado ? "🔇" : "🔊";
+
+      controlAudio.title =
+        silenciado
+          ? "Activar sonido"
+          : "Silenciar sonido";
+    }
+
+
+    /* ---------- INICIAR MUSIC BOX THEME ---------- */
+
+    function iniciarAudio() {
+
+      if (!audioCapitulo.paused) {
+        return;
+      }
+
+      fadeIn(
+        audioCapitulo,
+        volumenCapitulo,
+        2000
+      );
+    }
+
+
+    /*
+      Intentamos iniciar Music Box Theme
+      desde que carga el capítulo.
+    */
+
+    window.addEventListener(
+      "load",
+      iniciarAudio
+    );
+
+
+    /*
+      Si el navegador bloquea autoplay,
+      la primera interacción activa la música.
+    */
+
+    document.addEventListener(
+      "pointerdown",
+      () => {
+
+        if (audioCapitulo.paused) {
+          iniciarAudio();
+        }
+
+      },
+      { once: true }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      () => {
+
+        if (audioCapitulo.paused) {
+          iniciarAudio();
+        }
+
+      },
+      { once: true }
+    );
+
+
+    /* ---------- SALIR DEL CAPÍTULO ---------- */
+
+    document
+      .querySelectorAll(".enlace-salida")
+      .forEach(enlace => {
+
+        enlace.addEventListener(
+          "click",
+          function(evento) {
+
+            if (
+              evento.ctrlKey ||
+              evento.metaKey ||
+              evento.shiftKey ||
+              evento.button === 1
+            ) {
+              return;
+            }
+
+            evento.preventDefault();
+
+            const destino = this.href;
+
+            fadeOut(
+              audioCapitulo,
+              650
+            );
+
+            setTimeout(() => {
+
+              window.location.href =
+                destino;
+
+            }, 650);
+          }
+        );
+      });
+
   </script>
 
 </body>
