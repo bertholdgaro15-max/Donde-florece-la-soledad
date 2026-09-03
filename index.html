@@ -531,6 +531,14 @@
     audioViento.muted = silenciado;
     audioMain.muted = silenciado;
 
+    /*
+      Los dejamos inicialmente a volumen 0 para evitar
+      cualquier golpe de volumen mientras carga la página.
+    */
+
+    audioViento.volume = 0;
+    audioMain.volume = 0;
+
     actualizarIconoSonido();
 
 
@@ -540,22 +548,48 @@
 
       clearInterval(audio.fadeInterval);
 
-      audio.volume = 0;
+      if (audio.paused) {
+        audio.volume = 0;
+      }
 
       const pasos = 40;
       const intervalo = duracion / pasos;
-      const incremento = volumenFinal / pasos;
 
-      audio.play().catch(() => {});
+      const volumenInicial = audio.volume;
+
+      const incremento =
+        (volumenFinal - volumenInicial) / pasos;
+
+      const reproducir = audio.play();
+
+      if (reproducir !== undefined) {
+        reproducir.catch(() => {
+          /*
+            El navegador bloqueó autoplay.
+            Esperaremos la primera interacción.
+          */
+        });
+      }
 
       audio.fadeInterval = setInterval(() => {
 
+        if (audio.paused) {
+          clearInterval(audio.fadeInterval);
+          return;
+        }
+
         const nuevoVolumen =
-          Math.min(audio.volume + incremento, volumenFinal);
+          Math.min(
+            audio.volume + incremento,
+            volumenFinal
+          );
 
         audio.volume = nuevoVolumen;
 
         if (nuevoVolumen >= volumenFinal) {
+
+          audio.volume = volumenFinal;
+
           clearInterval(audio.fadeInterval);
         }
 
@@ -572,6 +606,7 @@
       if (audio.paused) return;
 
       const volumenInicial = audio.volume;
+
       const pasos = 40;
       const intervalo = duracion / pasos;
       const decremento = volumenInicial / pasos;
@@ -579,11 +614,16 @@
       audio.fadeInterval = setInterval(() => {
 
         const nuevoVolumen =
-          Math.max(audio.volume - decremento, 0);
+          Math.max(
+            audio.volume - decremento,
+            0
+          );
 
         audio.volume = nuevoVolumen;
 
         if (nuevoVolumen <= 0) {
+
+          audio.volume = 0;
 
           clearInterval(audio.fadeInterval);
 
@@ -609,6 +649,59 @@
       );
 
       actualizarIconoSonido();
+
+      /*
+        Si el usuario activa el sonido y estamos
+        todavía en portada o tarjeta, intentamos
+        poner en marcha el viento.
+      */
+
+      if (!silenciado) {
+
+        const portada =
+          document.getElementById("portada");
+
+        const tarjeta =
+          document.getElementById("tarjeta");
+
+        const menu =
+          document.getElementById("menu");
+
+        const portadaVisible =
+          portada.style.display !== "none";
+
+        const tarjetaVisible =
+          tarjeta.style.display !== "none" &&
+          getComputedStyle(tarjeta).display !== "none";
+
+        const menuVisible =
+          menu.style.display !== "none" &&
+          getComputedStyle(menu).display !== "none";
+
+        if (menuVisible) {
+
+          if (audioMain.paused) {
+            fadeIn(
+              audioMain,
+              volumenMain,
+              1200
+            );
+          }
+
+        } else if (
+          portadaVisible ||
+          tarjetaVisible
+        ) {
+
+          if (audioViento.paused) {
+            fadeIn(
+              audioViento,
+              volumenViento,
+              1200
+            );
+          }
+        }
+      }
     }
 
 
@@ -618,25 +711,103 @@
         silenciado ? "🔇" : "🔊";
 
       controlAudio.title =
-        silenciado ? "Activar sonido" : "Silenciar sonido";
+        silenciado
+          ? "Activar sonido"
+          : "Silenciar sonido";
     }
+
+
+    /* ---------- VIENTO DESDE LA PORTADA ---------- */
+
+    function iniciarVientoDesdeInicio() {
+
+      /*
+        Si ya está reproduciéndose,
+        NO hacemos absolutamente nada.
+        Así nunca se reinicia al pasar a la tarjeta.
+      */
+
+      if (!audioViento.paused) {
+        return;
+      }
+
+      fadeIn(
+        audioViento,
+        volumenViento,
+        2200
+      );
+    }
+
+
+    /*
+      Desde que termina de cargar la página
+      intentamos iniciar el viento.
+
+      Si Chrome / Opera permite autoplay,
+      comenzará aquí mismo, en la portada.
+    */
+
+    window.addEventListener(
+      "load",
+      iniciarVientoDesdeInicio
+    );
+
+
+    /*
+      Si el navegador bloqueó el autoplay audible,
+      la PRIMERA interacción del usuario lo desbloquea.
+
+      Pointerdown ocurre antes del click,
+      así que incluso si la primera interacción
+      es el botón Entrar, el viento comienza
+      antes de cambiar a la tarjeta.
+    */
+
+    document.addEventListener(
+      "pointerdown",
+      () => {
+
+        if (audioViento.paused) {
+          iniciarVientoDesdeInicio();
+        }
+
+      },
+      { once: true }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      () => {
+
+        if (audioViento.paused) {
+          iniciarVientoDesdeInicio();
+        }
+
+      },
+      { once: true }
+    );
 
 
     /* ---------- ENTRAR ---------- */
 
     function abrirTarjeta() {
 
-      const portada = document.getElementById("portada");
-      const tarjeta = document.getElementById("tarjeta");
+      const portada =
+        document.getElementById("portada");
+
+      const tarjeta =
+        document.getElementById("tarjeta");
 
       /*
-        El viento comienza SOLO cuando Gé pulsa Entrar.
-        Este clic permite que el navegador autorice el audio.
-      */
+        MUY IMPORTANTE:
 
-      if (audioViento.paused) {
-        fadeIn(audioViento, volumenViento, 1800);
-      }
+        Aquí NO tocamos el audio.
+
+        El viento que estaba sonando en la portada
+        simplemente continúa exactamente desde
+        el segundo en el que iba.
+      */
 
       portada.style.animation =
         "desaparecer 0.6s ease forwards";
@@ -646,6 +817,7 @@
         portada.style.display = "none";
 
         tarjeta.style.display = "block";
+
         tarjeta.style.animation =
           "aparecer 1.2s ease";
 
@@ -659,18 +831,35 @@
 
     function abrirMenu() {
 
-      const tarjeta = document.getElementById("tarjeta");
-      const menu = document.getElementById("menu");
+      const tarjeta =
+        document.getElementById("tarjeta");
+
+      const menu =
+        document.getElementById("menu");
 
       /*
-        Empieza el Main Theme en el mismo clic de Comenzar,
-        mientras el viento va desapareciendo.
+        Aquí sí cambia la banda sonora.
+
+        Viento:
+        fade out.
+
+        Main Theme:
+        comienza desde el principio
+        y entra progresivamente.
       */
 
       audioMain.currentTime = 0;
 
-      fadeOut(audioViento, 1800);
-      fadeIn(audioMain, volumenMain, 1800);
+      fadeOut(
+        audioViento,
+        1800
+      );
+
+      fadeIn(
+        audioMain,
+        volumenMain,
+        1800
+      );
 
       tarjeta.style.animation =
         "desaparecer 0.6s ease forwards";
@@ -680,6 +869,7 @@
         tarjeta.style.display = "none";
 
         menu.style.display = "block";
+
         menu.style.animation =
           "aparecer 1.3s ease";
 
@@ -693,16 +883,36 @@
 
     function volverTarjeta() {
 
-      const tarjeta = document.getElementById("tarjeta");
-      const menu = document.getElementById("menu");
+      const tarjeta =
+        document.getElementById("tarjeta");
+
+      const menu =
+        document.getElementById("menu");
 
       /*
-        Si Gé vuelve desde el menú,
-        regresamos suavemente del Main Theme al viento.
+        Si Gé regresa desde el menú:
+
+        Main Theme se desvanece.
+
+        El viento vuelve.
+
+        Aquí sí permitimos que el viento empiece
+        desde el inicio porque ya estamos regresando
+        conscientemente a la parte anterior.
       */
 
-      fadeOut(audioMain, 1600);
-      fadeIn(audioViento, volumenViento, 1600);
+      fadeOut(
+        audioMain,
+        1600
+      );
+
+      audioViento.currentTime = 0;
+
+      fadeIn(
+        audioViento,
+        volumenViento,
+        1600
+      );
 
       menu.style.animation =
         "desaparecer 0.5s ease forwards";
@@ -712,6 +922,7 @@
         menu.style.display = "none";
 
         tarjeta.style.display = "block";
+
         tarjeta.style.animation =
           "aparecer 1s ease";
 
@@ -723,35 +934,53 @@
 
     /* ---------- SALIR DEL MENÚ ---------- */
 
-    document.querySelectorAll(".opcion").forEach(enlace => {
+    document
+      .querySelectorAll(".opcion")
+      .forEach(enlace => {
 
-      enlace.addEventListener("click", function(evento) {
+        enlace.addEventListener(
+          "click",
+          function(evento) {
 
-        /*
-          Ctrl / Cmd / clic central:
-          dejamos que el navegador abra normalmente.
-        */
+            /*
+              Si abre en nueva pestaña con Ctrl,
+              Cmd, Shift o clic central,
+              no interferimos.
+            */
 
-        if (
-          evento.ctrlKey ||
-          evento.metaKey ||
-          evento.shiftKey ||
-          evento.button === 1
-        ) {
-          return;
-        }
+            if (
+              evento.ctrlKey ||
+              evento.metaKey ||
+              evento.shiftKey ||
+              evento.button === 1
+            ) {
+              return;
+            }
 
-        evento.preventDefault();
+            evento.preventDefault();
 
-        const destino = this.href;
+            const destino =
+              this.href;
 
-        fadeOut(audioMain, 650);
+            /*
+              Antes de abandonar el menú,
+              el Main Theme desaparece suavemente.
+            */
 
-        setTimeout(() => {
-          window.location.href = destino;
-        }, 650);
+            fadeOut(
+              audioMain,
+              650
+            );
+
+            setTimeout(() => {
+
+              window.location.href =
+                destino;
+
+            }, 650);
+          }
+        );
       });
-    });
 
   </script>
 
