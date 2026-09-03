@@ -114,7 +114,7 @@
 
     .navegacion {
       display: flex;
-      gap: 25px;
+      gap: 20px;
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
@@ -135,6 +135,11 @@
       color: #e5a0ab;
       border-color: #b36d78;
       background: rgba(179,109,120,0.05);
+    }
+
+    .continuar {
+      color: #d9919d;
+      border-color: rgba(217,145,157,0.35);
     }
 
     @keyframes aparecer {
@@ -231,8 +236,16 @@
 
     <div class="navegacion">
 
+      <a class="boton" href="../epilogo/">
+        ← Volver al Epílogo
+      </a>
+
       <a class="boton" href="../">
-        ← Volver al menú
+        Volver al menú
+      </a>
+
+      <a class="boton continuar" href="../novela/">
+        Leer la novela narrada →
       </a>
 
     </div>
