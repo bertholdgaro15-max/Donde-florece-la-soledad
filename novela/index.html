@@ -114,6 +114,13 @@
       margin-bottom: 35px;
     }
 
+    .navegacion {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
     .boton {
       display: inline-block;
       color: #d9d4cf;
@@ -151,6 +158,16 @@
         min-height: 500px;
         border-left: 0;
         border-right: 0;
+      }
+
+      .navegacion {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .boton {
+        width: 100%;
+        max-width: 310px;
       }
     }
   </style>
@@ -203,9 +220,17 @@
       Gracias por acompañarlos en el camino.
     </h2>
 
-    <a class="boton" href="../">
-      ← Volver al menú
-    </a>
+    <div class="navegacion">
+
+      <a class="boton" href="../detras/">
+        ← Volver a Detrás
+      </a>
+
+      <a class="boton" href="../">
+        Volver al menú
+      </a>
+
+    </div>
 
   </footer>
 
