@@ -1,1 +1,1380 @@
-<!-- Un ciclo más -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Un ciclo más — Donde florece la soledad</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      background:
+        radial-gradient(
+          circle at 50% 80%,
+          rgba(105, 15, 30, 0.24) 0%,
+          rgba(45, 7, 15, 0.12) 28%,
+          rgba(5, 7, 11, 0.92) 62%,
+          #010204 100%
+        );
+
+      color: #f4f1ec;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      overflow: hidden;
+    }
+
+    /* =========================
+       ESCENA
+    ========================= */
+
+    .escena {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 650px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* =========================
+       ATMÓSFERA
+    ========================= */
+
+    .niebla {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          ellipse at 20% 70%,
+          rgba(120, 12, 30, 0.12),
+          transparent 45%
+        ),
+        radial-gradient(
+          ellipse at 80% 65%,
+          rgba(75, 5, 20, 0.14),
+          transparent 42%
+        );
+    }
+
+    .resplandor {
+      position: absolute;
+
+      width: 900px;
+      height: 450px;
+
+      left: 50%;
+      bottom: -140px;
+
+      transform: translateX(-50%);
+
+      background:
+        radial-gradient(
+          ellipse,
+          rgba(151, 22, 45, 0.22),
+          rgba(92, 8, 24, 0.08) 45%,
+          transparent 72%
+        );
+
+      filter: blur(30px);
+
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* =========================
+       ENCABEZADO
+    ========================= */
+
+    .encabezado {
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+
+      width: calc(100% - 150px);
+
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .obra {
+      color: #b79095;
+      font-size: 0.66rem;
+      letter-spacing: 0.52em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .titulo {
+      font-weight: 400;
+      font-size: clamp(2rem, 5vw, 4.4rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 20px rgba(200, 80, 100, 0.14);
+    }
+
+    .subtitulo {
+      margin-top: 10px;
+      color: #8d777b;
+      font-size: 0.66rem;
+      letter-spacing: 0.48em;
+      text-transform: uppercase;
+    }
+
+    /* =========================
+       LETRA
+    ========================= */
+
+    .zona-letra {
+      position: absolute;
+
+      top: 24%;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      width: min(850px, 82vw);
+      height: 30vh;
+
+      z-index: 18;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+
+      pointer-events: none;
+    }
+
+    .letra {
+      opacity: 0;
+      transform: translateY(10px);
+
+      font-size: clamp(1.15rem, 2.2vw, 2rem);
+      line-height: 1.65;
+
+      letter-spacing: 0.055em;
+
+      color: rgba(244, 241, 236, 0.94);
+
+      font-style: italic;
+
+      text-shadow:
+        0 2px 12px rgba(0,0,0,0.95),
+        0 0 18px rgba(180,45,65,0.13);
+
+      transition:
+        opacity 0.9s ease,
+        transform 0.9s ease;
+    }
+
+    .letra.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .letra.coro {
+      color: #f1d9dc;
+
+      text-shadow:
+        0 2px 12px rgba(0,0,0,0.95),
+        0 0 24px rgba(210,70,90,0.22);
+    }
+
+    .letra .palabra-principal {
+      display: block;
+      color: #d8838f;
+      font-size: 1.16em;
+      margin-bottom: 4px;
+      letter-spacing: 0.11em;
+    }
+
+    /* =========================
+       PERSONAJES
+    ========================= */
+
+    .personajes-contenedor {
+      position: absolute;
+
+      bottom: -2px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      width: min(76vw, 920px);
+      max-height: 55vh;
+
+      z-index: 10;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      pointer-events: none;
+    }
+
+    .personajes {
+      display: block;
+
+      width: 100%;
+      max-height: 55vh;
+
+      object-fit: contain;
+      object-position: center bottom;
+
+      filter:
+        drop-shadow(0 -8px 24px rgba(0,0,0,0.5))
+        drop-shadow(0 0 24px rgba(110,15,30,0.12));
+    }
+
+    /* =========================
+       PÉTALOS
+    ========================= */
+
+    .petalos {
+      position: absolute;
+      inset: 0;
+
+      overflow: hidden;
+
+      z-index: 15;
+
+      pointer-events: none;
+    }
+
+    .petalo {
+      position: absolute;
+
+      top: -12vh;
+
+      width: var(--tam);
+      height: calc(var(--tam) * 0.68);
+
+      left: var(--x);
+
+      opacity: var(--opacidad);
+
+      background:
+        radial-gradient(
+          ellipse at 35% 35%,
+          #e45a6b 0%,
+          #a71934 45%,
+          #4e0716 100%
+        );
+
+      border-radius:
+        70% 20% 65% 30%;
+
+      filter:
+        blur(var(--blur));
+
+      animation:
+        caer var(--duracion) linear infinite;
+
+      animation-delay:
+        var(--delay);
+
+      transform-origin: center;
+    }
+
+    @keyframes caer {
+      0% {
+        transform:
+          translate3d(0, -10vh, 0)
+          rotate(0deg);
+
+        opacity: 0;
+      }
+
+      8% {
+        opacity: var(--opacidad);
+      }
+
+      45% {
+        transform:
+          translate3d(
+            var(--deriva),
+            48vh,
+            0
+          )
+          rotate(190deg);
+      }
+
+      100% {
+        transform:
+          translate3d(
+            calc(var(--deriva) * -0.4),
+            118vh,
+            0
+          )
+          rotate(430deg);
+
+        opacity: 0;
+      }
+    }
+
+    /* =========================
+       CONTROLES
+    ========================= */
+
+    .controles {
+      position: absolute;
+
+      right: 24px;
+      bottom: 22px;
+
+      z-index: 30;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 9px 12px;
+
+      border:
+        1px solid rgba(255,255,255,0.10);
+
+      border-radius: 30px;
+
+      background:
+        rgba(5,7,10,0.65);
+
+      backdrop-filter:
+        blur(10px);
+    }
+
+    .boton-audio {
+      width: 38px;
+      height: 38px;
+
+      border-radius: 50%;
+
+      border:
+        1px solid rgba(255,255,255,0.16);
+
+      background:
+        rgba(255,255,255,0.025);
+
+      color: #eee7e3;
+
+      cursor: pointer;
+
+      font-size: 0.9rem;
+
+      transition: 0.3s;
+    }
+
+    .boton-audio:hover {
+      border-color: #b36d78;
+      color: white;
+    }
+
+    .tiempo {
+      min-width: 86px;
+
+      color: #94878a;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+
+      text-align: center;
+    }
+
+    /* =========================
+       NAVEGACIÓN
+    ========================= */
+
+    .volver {
+      position: absolute;
+
+      left: 24px;
+      bottom: 24px;
+
+      z-index: 30;
+
+      display: flex;
+      gap: 10px;
+
+      flex-wrap: wrap;
+    }
+
+    .boton-nav {
+      color: #a99da0;
+
+      text-decoration: none;
+
+      text-transform: uppercase;
+
+      font-size: 0.61rem;
+      letter-spacing: 0.18em;
+
+      padding: 12px 15px;
+
+      border:
+        1px solid rgba(255,255,255,0.10);
+
+      background:
+        rgba(5,7,10,0.52);
+
+      backdrop-filter:
+        blur(8px);
+
+      transition: 0.3s;
+    }
+
+    .boton-nav:hover {
+      color: white;
+      border-color: #b36d78;
+
+      background:
+        rgba(179,109,120,0.07);
+    }
+
+    /* =========================
+       MENSAJE INICIAL
+    ========================= */
+
+    .iniciar {
+      position: absolute;
+
+      left: 50%;
+      top: 57%;
+
+      transform: translate(-50%, -50%);
+
+      z-index: 40;
+
+      text-align: center;
+
+      transition:
+        opacity 0.6s ease,
+        visibility 0.6s ease;
+    }
+
+    .iniciar.oculto {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .boton-iniciar {
+      color: #e5c7cc;
+
+      background:
+        rgba(8,5,7,0.62);
+
+      border:
+        1px solid rgba(216,120,135,0.42);
+
+      padding: 15px 25px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      letter-spacing: 0.2em;
+
+      text-transform: uppercase;
+
+      cursor: pointer;
+
+      backdrop-filter:
+        blur(10px);
+
+      transition: 0.35s;
+    }
+
+    .boton-iniciar:hover {
+      color: white;
+
+      border-color: #d76c78;
+
+      background:
+        rgba(179,55,75,0.12);
+    }
+
+    .iniciar p {
+      margin-top: 13px;
+
+      color: #71676a;
+
+      font-size: 0.68rem;
+
+      font-style: italic;
+
+      letter-spacing: 0.08em;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      .escena {
+        min-height: 620px;
+      }
+
+      .encabezado {
+        top: 23px;
+        width: 90%;
+      }
+
+      .obra {
+        font-size: 0.52rem;
+        letter-spacing: 0.38em;
+      }
+
+      .titulo {
+        margin-top: 4px;
+
+        font-size: clamp(
+          1.65rem,
+          8vw,
+          2.5rem
+        );
+
+        letter-spacing: 0.17em;
+      }
+
+      .subtitulo {
+        font-size: 0.48rem;
+        letter-spacing: 0.32em;
+      }
+
+      .zona-letra {
+        top: 19%;
+
+        width: 88vw;
+        height: 32vh;
+      }
+
+      .letra {
+        font-size:
+          clamp(
+            1rem,
+            4.7vw,
+            1.35rem
+          );
+
+        line-height: 1.55;
+      }
+
+      .personajes-contenedor {
+        width: 114vw;
+        max-height: 48vh;
+
+        bottom: -1vh;
+      }
+
+      .personajes {
+        max-height: 48vh;
+      }
+
+      .controles {
+        right: 12px;
+        bottom: 12px;
+
+        padding: 6px 8px;
+        gap: 5px;
+      }
+
+      .boton-audio {
+        width: 34px;
+        height: 34px;
+      }
+
+      .tiempo {
+        min-width: 66px;
+        font-size: 0.56rem;
+      }
+
+      .volver {
+        left: 12px;
+        bottom: 12px;
+
+        max-width: 150px;
+
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .boton-nav {
+        padding: 9px 11px;
+
+        font-size: 0.50rem;
+
+        letter-spacing: 0.12em;
+
+        text-align: center;
+      }
+
+      .iniciar {
+        top: 53%;
+      }
+
+      .boton-iniciar {
+        padding: 13px 20px;
+        font-size: 0.67rem;
+      }
+    }
+
+
+    @media (max-height: 700px) {
+
+      .zona-letra {
+        top: 19%;
+        height: 28vh;
+      }
+
+      .personajes-contenedor {
+        max-height: 50vh;
+      }
+
+      .personajes {
+        max-height: 50vh;
+      }
+
+      .titulo {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <section class="escena">
+
+    <div class="niebla"></div>
+    <div class="resplandor"></div>
+
+    <!-- PÉTALOS -->
+
+    <div
+      class="petalos"
+      id="petalos">
+    </div>
+
+
+    <!-- ENCABEZADO -->
+
+    <header class="encabezado">
+
+      <div class="obra">
+        Donde florece la soledad
+      </div>
+
+      <h1 class="titulo">
+        Un ciclo más
+      </h1>
+
+      <div class="subtitulo">
+        Canción original
+      </div>
+
+    </header>
+
+
+    <!-- LETRA -->
+
+    <div class="zona-letra">
+
+      <div
+        class="letra"
+        id="letra">
+      </div>
+
+    </div>
+
+
+    <!-- GÉ Y BE -->
+
+    <div class="personajes-contenedor">
+
+      <img
+        class="personajes"
+        src="Ge-Be.png"
+        alt="Gé y Be">
+    </div>
+
+
+    <!-- PANTALLA DE INICIO -->
+
+    <div
+      class="iniciar"
+      id="iniciar">
+
+      <button
+        class="boton-iniciar"
+        onclick="comenzar()">
+        Escuchar
+      </button>
+
+      <p>
+        Una última canción para el camino.
+      </p>
+
+    </div>
+
+
+    <!-- NAVEGACIÓN -->
+
+    <nav class="volver">
+
+      <a
+        class="boton-nav"
+        href="../novela/">
+        ← Novela
+      </a>
+
+      <a
+        class="boton-nav"
+        href="../">
+        Menú
+      </a>
+
+    </nav>
+
+
+    <!-- CONTROLES -->
+
+    <div class="controles">
+
+      <button
+        class="boton-audio"
+        id="play-pausa"
+        onclick="alternarPlay()"
+        aria-label="Reproducir o pausar">
+        ▶
+      </button>
+
+      <button
+        class="boton-audio"
+        id="mute"
+        onclick="alternarMute()"
+        aria-label="Activar o silenciar sonido">
+        🔊
+      </button>
+
+      <div
+        class="tiempo"
+        id="tiempo">
+        0:00 / 3:33
+      </div>
+
+    </div>
+
+
+    <!-- AUDIO -->
+
+    <audio
+      id="audio"
+      src="../Audios/Un%20ciclo%20mas.mp3"
+      preload="auto">
+    </audio>
+
+  </section>
+
+
+  <script>
+
+    /* ============================================
+       AUDIO
+    ============================================ */
+
+    const audio =
+      document.getElementById("audio");
+
+    const letra =
+      document.getElementById("letra");
+
+    const botonPlay =
+      document.getElementById("play-pausa");
+
+    const botonMute =
+      document.getElementById("mute");
+
+    const iniciar =
+      document.getElementById("iniciar");
+
+    const tiempo =
+      document.getElementById("tiempo");
+
+    const volumenNormal = 0.27;
+
+    audio.volume = volumenNormal;
+
+
+    let silenciado =
+      localStorage.getItem(
+        "sonidoSilenciado"
+      ) === "true";
+
+    audio.muted = silenciado;
+
+    actualizarMute();
+
+
+    /* ============================================
+       LETRA SINCRONIZADA
+
+       IMPORTANTE:
+       Estos son los tiempos que vamos a ajustar
+       después de probarla en vivo.
+
+       inicio = segundo donde aparece
+       fin    = segundo donde desaparece
+    ============================================ */
+
+
+    const bloques = [
+
+      {
+        inicio: 12,
+        fin: 31,
+        tipo: "verso",
+        html:
+          '<span class="palabra-principal">Caminos</span>' +
+          'Que parecen avanzar,<br>' +
+          'Te hacen regresar<br>' +
+          'Al mismo lugar.'
+      },
+
+      {
+        inicio: 32,
+        fin: 52,
+        tipo: "verso",
+        html:
+          '<span class="palabra-principal">Sombras</span>' +
+          'Sin rostros que mostrar<br>' +
+          'con gran peso detrás<br>' +
+          'Te envuelven y se van.'
+      },
+
+      {
+        inicio: 53,
+        fin: 67,
+        tipo: "pre",
+        html:
+          'Y aunque vuelva a caminar,<br>' +
+          'Algo en mí no vuelve igual.'
+      },
+
+      {
+        inicio: 68,
+        fin: 89,
+        tipo: "coro",
+        html:
+          'Pero al repetir un ciclo más<br>' +
+          'Sientes que todo es oscuridad en ti<br>' +
+          'No es así...'
+      },
+
+      {
+        inicio: 90,
+        fin: 108,
+        tipo: "coro",
+        html:
+          'Otra realidad se mostrará<br>' +
+          'Si logras mirar más allá de ti<br>' +
+          'Y dentro de ti'
+      },
+
+      {
+        inicio: 109,
+        fin: 127,
+        tipo: "verso",
+        html:
+          '<span class="palabra-principal">Flores</span>' +
+          'nacen al pasar<br>' +
+          'algunas quedarán,<br>' +
+          'y otras morirán.'
+      },
+
+      {
+        inicio: 128,
+        fin: 147,
+        tipo: "verso",
+        html:
+          '<span class="palabra-principal">Huellas</span>' +
+          'Vuelven hacia atrás,<br>' +
+          'Parecen terminar<br>' +
+          'y vuelven a empezar.'
+      },
+
+      {
+        inicio: 148,
+        fin: 162,
+        tipo: "pre",
+        html:
+          'Y aunque vuelva a caminar,<br>' +
+          'Algo en mí no vuelve igual.'
+      },
+
+      {
+        inicio: 163,
+        fin: 184,
+        tipo: "coro",
+        html:
+          'Pero al repetir un ciclo más<br>' +
+          'Sientes que todo es oscuridad en ti<br>' +
+          'No es así...'
+      },
+
+      {
+        inicio: 185,
+        fin: 207,
+        tipo: "coro",
+        html:
+          'Otra realidad se mostrará<br>' +
+          'Si logras mirar más allá de ti<br>' +
+          'Y dentro de ti'
+      }
+
+    ];
+
+
+    let bloqueActual = -1;
+
+
+    /* ============================================
+       COMENZAR
+    ============================================ */
+
+    function comenzar() {
+
+      iniciar.classList.add("oculto");
+
+      audio.currentTime = 0;
+
+      audio.play()
+        .then(() => {
+
+          botonPlay.textContent = "❚❚";
+
+        })
+        .catch(() => {
+
+          botonPlay.textContent = "▶";
+
+        });
+    }
+
+
+    /* ============================================
+       PLAY / PAUSA
+    ============================================ */
+
+    function alternarPlay() {
+
+      iniciar.classList.add("oculto");
+
+      if (audio.paused) {
+
+        audio.play();
+
+        botonPlay.textContent = "❚❚";
+
+      } else {
+
+        audio.pause();
+
+        botonPlay.textContent = "▶";
+      }
+    }
+
+
+    audio.addEventListener(
+      "play",
+      () => {
+
+        botonPlay.textContent = "❚❚";
+      }
+    );
+
+
+    audio.addEventListener(
+      "pause",
+      () => {
+
+        botonPlay.textContent = "▶";
+      }
+    );
+
+
+    /* ============================================
+       MUTE
+    ============================================ */
+
+    function alternarMute() {
+
+      silenciado = !silenciado;
+
+      audio.muted = silenciado;
+
+      localStorage.setItem(
+        "sonidoSilenciado",
+        silenciado
+      );
+
+      actualizarMute();
+    }
+
+
+    function actualizarMute() {
+
+      botonMute.textContent =
+        silenciado
+          ? "🔇"
+          : "🔊";
+    }
+
+
+    /* ============================================
+       ACTUALIZAR LETRA
+    ============================================ */
+
+    function actualizarLetra() {
+
+      const segundo =
+        audio.currentTime;
+
+      let encontrado = -1;
+
+
+      for (
+        let i = 0;
+        i < bloques.length;
+        i++
+      ) {
+
+        if (
+          segundo >= bloques[i].inicio &&
+          segundo < bloques[i].fin
+        ) {
+
+          encontrado = i;
+          break;
+        }
+      }
+
+
+      if (
+        encontrado !== bloqueActual
+      ) {
+
+        letra.classList.remove(
+          "visible"
+        );
+
+
+        setTimeout(() => {
+
+          bloqueActual =
+            encontrado;
+
+
+          if (encontrado === -1) {
+
+            letra.innerHTML = "";
+
+            letra.className =
+              "letra";
+
+            return;
+          }
+
+
+          const bloque =
+            bloques[encontrado];
+
+
+          letra.innerHTML =
+            bloque.html;
+
+
+          letra.className =
+            "letra";
+
+
+          if (
+            bloque.tipo === "coro"
+          ) {
+
+            letra.classList.add(
+              "coro"
+            );
+          }
+
+
+          requestAnimationFrame(
+            () => {
+
+              letra.classList.add(
+                "visible"
+              );
+            }
+          );
+
+        }, 350);
+      }
+    }
+
+
+    audio.addEventListener(
+      "timeupdate",
+      actualizarLetra
+    );
+
+
+    /* ============================================
+       TIEMPO
+    ============================================ */
+
+    function formatoTiempo(
+      segundos
+    ) {
+
+      if (
+        !Number.isFinite(segundos)
+      ) {
+
+        return "0:00";
+      }
+
+      const minutos =
+        Math.floor(
+          segundos / 60
+        );
+
+      const resto =
+        Math.floor(
+          segundos % 60
+        );
+
+      return (
+        minutos +
+        ":" +
+        resto
+          .toString()
+          .padStart(2, "0")
+      );
+    }
+
+
+    audio.addEventListener(
+      "timeupdate",
+      () => {
+
+        tiempo.textContent =
+          formatoTiempo(
+            audio.currentTime
+          ) +
+          " / " +
+          formatoTiempo(
+            audio.duration
+          );
+      }
+    );
+
+
+    audio.addEventListener(
+      "loadedmetadata",
+      () => {
+
+        tiempo.textContent =
+          "0:00 / " +
+          formatoTiempo(
+            audio.duration
+          );
+      }
+    );
+
+
+    /* ============================================
+       FINAL
+    ============================================ */
+
+    audio.addEventListener(
+      "ended",
+      () => {
+
+        botonPlay.textContent =
+          "▶";
+
+        letra.classList.remove(
+          "visible"
+        );
+
+        setTimeout(() => {
+
+          letra.innerHTML =
+            "Todo vuelve a comenzar.";
+
+          letra.className =
+            "letra visible";
+
+        }, 900);
+      }
+    );
+
+
+    /* ============================================
+       PÉTALOS
+    ============================================ */
+
+    const contenedorPetalos =
+      document.getElementById(
+        "petalos"
+      );
+
+
+    function crearPetalos() {
+
+      const cantidad =
+        window.innerWidth < 700
+          ? 18
+          : 30;
+
+
+      for (
+        let i = 0;
+        i < cantidad;
+        i++
+      ) {
+
+        const petalo =
+          document.createElement(
+            "span"
+          );
+
+        petalo.className =
+          "petalo";
+
+
+        const tam =
+          8 +
+          Math.random() * 20;
+
+        const x =
+          Math.random() * 100;
+
+        const duracion =
+          9 +
+          Math.random() * 12;
+
+        const delay =
+          Math.random() * -18;
+
+        const deriva =
+          -90 +
+          Math.random() * 180;
+
+        const opacidad =
+          0.25 +
+          Math.random() * 0.65;
+
+        const blur =
+          Math.random() < 0.18
+            ? 2.2
+            : 0;
+
+
+        petalo.style.setProperty(
+          "--tam",
+          tam + "px"
+        );
+
+        petalo.style.setProperty(
+          "--x",
+          x + "%"
+        );
+
+        petalo.style.setProperty(
+          "--duracion",
+          duracion + "s"
+        );
+
+        petalo.style.setProperty(
+          "--delay",
+          delay + "s"
+        );
+
+        petalo.style.setProperty(
+          "--deriva",
+          deriva + "px"
+        );
+
+        petalo.style.setProperty(
+          "--opacidad",
+          opacidad
+        );
+
+        petalo.style.setProperty(
+          "--blur",
+          blur + "px"
+        );
+
+
+        contenedorPetalos.appendChild(
+          petalo
+        );
+      }
+    }
+
+
+    crearPetalos();
+
+
+    /* ============================================
+       TECLADO
+    ============================================ */
+
+    document.addEventListener(
+      "keydown",
+      evento => {
+
+        if (
+          evento.code === "Space"
+        ) {
+
+          evento.preventDefault();
+
+          alternarPlay();
+        }
+      }
+    );
+
+  </script>
+
+</body>
+</html>
