@@ -16,32 +16,19 @@
     html,
     body {
       width: 100%;
-      min-height: 100%;
+      height: 100%;
     }
 
     body {
-      background:
-        radial-gradient(
-          circle at 50% 80%,
-          rgba(105, 15, 30, 0.24) 0%,
-          rgba(45, 7, 15, 0.12) 28%,
-          rgba(5, 7, 11, 0.92) 62%,
-          #010204 100%
-        );
-
+      background: #020203;
       color: #f4f1ec;
-
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
+      font-family: Georgia, "Times New Roman", serif;
       overflow: hidden;
     }
 
-    /* =========================
-       ESCENA
-    ========================= */
+    /* ==================================================
+       ESCENA GENERAL
+    ================================================== */
 
     .escena {
       position: relative;
@@ -50,114 +37,170 @@
       min-height: 650px;
       overflow: hidden;
       isolation: isolate;
+
+      background:
+        radial-gradient(
+          ellipse at 50% 86%,
+          rgba(155, 5, 35, 0.55) 0%,
+          rgba(105, 5, 25, 0.32) 24%,
+          rgba(45, 2, 12, 0.18) 46%,
+          transparent 70%
+        ),
+        linear-gradient(
+          to bottom,
+          #020203 0%,
+          #050204 38%,
+          #110207 65%,
+          #33020d 100%
+        );
     }
 
-    /* =========================
-       ATMÓSFERA
-    ========================= */
+    /* ==================================================
+       FONDO DIFUMINADO NEGRO → ROJO
+    ================================================== */
 
-    .niebla {
+    .fondo-rojo {
       position: absolute;
       inset: 0;
       z-index: 0;
       pointer-events: none;
-
-      background:
-        radial-gradient(
-          ellipse at 20% 70%,
-          rgba(120, 12, 30, 0.12),
-          transparent 45%
-        ),
-        radial-gradient(
-          ellipse at 80% 65%,
-          rgba(75, 5, 20, 0.14),
-          transparent 42%
-        );
+      overflow: hidden;
     }
 
-    .resplandor {
+    .fondo-rojo::before {
+      content: "";
       position: absolute;
 
-      width: 900px;
-      height: 450px;
+      width: 120%;
+      height: 70%;
 
-      left: 50%;
-      bottom: -140px;
-
-      transform: translateX(-50%);
+      left: -10%;
+      bottom: -28%;
 
       background:
         radial-gradient(
-          ellipse,
-          rgba(151, 22, 45, 0.22),
-          rgba(92, 8, 24, 0.08) 45%,
+          ellipse at center,
+          rgba(210, 15, 48, 0.52) 0%,
+          rgba(130, 4, 28, 0.32) 28%,
+          rgba(70, 0, 18, 0.16) 52%,
+          transparent 76%
+        );
+
+      filter: blur(48px);
+    }
+
+    .fondo-rojo::after {
+      content: "";
+      position: absolute;
+
+      width: 80%;
+      height: 55%;
+
+      left: 10%;
+      bottom: -22%;
+
+      background:
+        radial-gradient(
+          ellipse at center,
+          rgba(255, 30, 65, 0.18),
+          rgba(120, 0, 20, 0.10) 42%,
           transparent 72%
         );
 
-      filter: blur(30px);
-
-      z-index: 1;
-      pointer-events: none;
+      filter: blur(75px);
     }
 
-    /* =========================
+    .viñeta {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          ellipse at center,
+          transparent 35%,
+          rgba(0,0,0,0.18) 66%,
+          rgba(0,0,0,0.78) 100%
+        );
+    }
+
+    /* ==================================================
        ENCABEZADO
-    ========================= */
+    ================================================== */
 
     .encabezado {
       position: absolute;
-      top: 28px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
 
-      width: calc(100% - 150px);
+      top: 26px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      width: calc(100% - 160px);
+
+      z-index: 30;
 
       text-align: center;
+
       pointer-events: none;
     }
 
     .obra {
-      color: #b79095;
-      font-size: 0.66rem;
+      color: #b89ca1;
+
+      font-size: 0.64rem;
+
       letter-spacing: 0.52em;
+
       text-transform: uppercase;
+
       margin-bottom: 12px;
     }
 
     .titulo {
+      font-size: clamp(2rem, 5vw, 4.5rem);
+
       font-weight: 400;
-      font-size: clamp(2rem, 5vw, 4.4rem);
-      letter-spacing: 0.25em;
+
+      letter-spacing: 0.24em;
+
       text-transform: uppercase;
+
+      color: #f0e8e8;
+
       text-shadow:
-        0 0 20px rgba(200, 80, 100, 0.14);
+        0 0 18px rgba(205, 45, 70, 0.13);
     }
 
     .subtitulo {
       margin-top: 10px;
-      color: #8d777b;
-      font-size: 0.66rem;
+
+      color: #947a7f;
+
+      font-size: 0.62rem;
+
       letter-spacing: 0.48em;
+
       text-transform: uppercase;
     }
 
-    /* =========================
+    /* ==================================================
        LETRA
-    ========================= */
+    ================================================== */
 
     .zona-letra {
       position: absolute;
 
-      top: 24%;
+      top: 23%;
       left: 50%;
 
       transform: translateX(-50%);
 
-      width: min(850px, 82vw);
-      height: 30vh;
+      width: min(880px, 84vw);
+      height: 31vh;
 
-      z-index: 18;
+      z-index: 25;
 
       display: flex;
       align-items: center;
@@ -170,24 +213,26 @@
 
     .letra {
       opacity: 0;
+
       transform: translateY(10px);
 
-      font-size: clamp(1.15rem, 2.2vw, 2rem);
+      font-size: clamp(1.15rem, 2.15vw, 2rem);
+
       line-height: 1.65;
 
       letter-spacing: 0.055em;
 
-      color: rgba(244, 241, 236, 0.94);
+      color: rgba(244, 241, 236, 0.95);
 
       font-style: italic;
 
       text-shadow:
-        0 2px 12px rgba(0,0,0,0.95),
-        0 0 18px rgba(180,45,65,0.13);
+        0 2px 12px rgba(0,0,0,1),
+        0 0 20px rgba(175,20,45,0.20);
 
       transition:
-        opacity 0.9s ease,
-        transform 0.9s ease;
+        opacity 0.75s ease,
+        transform 0.75s ease;
     }
 
     .letra.visible {
@@ -196,39 +241,47 @@
     }
 
     .letra.coro {
-      color: #f1d9dc;
+      color: #f5dce0;
 
       text-shadow:
-        0 2px 12px rgba(0,0,0,0.95),
-        0 0 24px rgba(210,70,90,0.22);
+        0 2px 14px rgba(0,0,0,1),
+        0 0 26px rgba(220,45,75,0.30);
     }
 
-    .letra .palabra-principal {
+    .palabra-principal {
       display: block;
-      color: #d8838f;
-      font-size: 1.16em;
-      margin-bottom: 4px;
+
+      margin-bottom: 3px;
+
+      color: #de8793;
+
+      font-size: 1.18em;
+
       letter-spacing: 0.11em;
+
+      font-style: normal;
     }
 
-    /* =========================
+    /* ==================================================
        PERSONAJES
-    ========================= */
+    ================================================== */
 
     .personajes-contenedor {
       position: absolute;
 
-      bottom: -2px;
       left: 50%;
+      bottom: -3px;
 
       transform: translateX(-50%);
 
-      width: min(76vw, 920px);
-      max-height: 55vh;
+      width: min(78vw, 940px);
+
+      height: 56vh;
 
       z-index: 10;
 
       display: flex;
+
       justify-content: center;
       align-items: flex-end;
 
@@ -239,27 +292,27 @@
       display: block;
 
       width: 100%;
-      max-height: 55vh;
+      height: 100%;
 
       object-fit: contain;
       object-position: center bottom;
 
       filter:
-        drop-shadow(0 -8px 24px rgba(0,0,0,0.5))
-        drop-shadow(0 0 24px rgba(110,15,30,0.12));
+        drop-shadow(0 -8px 24px rgba(0,0,0,0.55))
+        drop-shadow(0 0 32px rgba(145,10,35,0.18));
     }
 
-    /* =========================
+    /* ==================================================
        PÉTALOS
-    ========================= */
+    ================================================== */
 
     .petalos {
       position: absolute;
       inset: 0;
 
-      overflow: hidden;
+      z-index: 20;
 
-      z-index: 15;
+      overflow: hidden;
 
       pointer-events: none;
     }
@@ -268,27 +321,25 @@
       position: absolute;
 
       top: -12vh;
+      left: var(--x);
 
       width: var(--tam);
       height: calc(var(--tam) * 0.68);
 
-      left: var(--x);
-
       opacity: var(--opacidad);
+
+      border-radius:
+        75% 24% 72% 28%;
 
       background:
         radial-gradient(
           ellipse at 35% 35%,
-          #e45a6b 0%,
-          #a71934 45%,
-          #4e0716 100%
+          #ef6478 0%,
+          #bd1737 42%,
+          #570718 100%
         );
 
-      border-radius:
-        70% 20% 65% 30%;
-
-      filter:
-        blur(var(--blur));
+      filter: blur(var(--blur));
 
       animation:
         caer var(--duracion) linear infinite;
@@ -300,6 +351,7 @@
     }
 
     @keyframes caer {
+
       0% {
         transform:
           translate3d(0, -10vh, 0)
@@ -308,7 +360,7 @@
         opacity: 0;
       }
 
-      8% {
+      10% {
         opacity: var(--opacidad);
       }
 
@@ -325,8 +377,8 @@
       100% {
         transform:
           translate3d(
-            calc(var(--deriva) * -0.4),
-            118vh,
+            calc(var(--deriva) * -0.45),
+            116vh,
             0
           )
           rotate(430deg);
@@ -335,91 +387,253 @@
       }
     }
 
-    /* =========================
-       CONTROLES
-    ========================= */
+    /* ==================================================
+       BOTÓN INICIAL
+    ================================================== */
 
-    .controles {
+    .inicio {
       position: absolute;
 
-      right: 24px;
-      bottom: 22px;
+      left: 50%;
+      top: 56%;
 
-      z-index: 30;
+      transform: translate(-50%, -50%);
+
+      z-index: 50;
+
+      text-align: center;
+
+      transition:
+        opacity 0.6s ease,
+        visibility 0.6s ease;
+    }
+
+    .inicio.oculto {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .boton-inicio {
+      padding: 15px 27px;
+
+      border:
+        1px solid rgba(220,110,125,0.42);
+
+      background:
+        rgba(6,3,5,0.68);
+
+      color: #edced3;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 0.72rem;
+
+      letter-spacing: 0.22em;
+
+      text-transform: uppercase;
+
+      cursor: pointer;
+
+      backdrop-filter: blur(10px);
+
+      transition: 0.35s;
+    }
+
+    .boton-inicio:hover {
+      color: white;
+
+      border-color: #d76c78;
+
+      background:
+        rgba(130,12,32,0.16);
+    }
+
+    .inicio p {
+      margin-top: 12px;
+
+      color: #76686b;
+
+      font-size: 0.69rem;
+
+      font-style: italic;
+
+      letter-spacing: 0.08em;
+    }
+
+    /* ==================================================
+       REPRODUCTOR SOBRE LOS PERSONAJES
+    ================================================== */
+
+    .reproductor {
+      position: absolute;
+
+      left: 50%;
+      bottom: 56px;
+
+      transform: translateX(-50%);
+
+      z-index: 40;
+
+      width: min(560px, 46vw);
 
       display: flex;
+
       align-items: center;
-      gap: 10px;
+
+      gap: 11px;
 
       padding: 9px 12px;
+
+      background:
+        rgba(4,3,5,0.54);
 
       border:
         1px solid rgba(255,255,255,0.10);
 
-      border-radius: 30px;
-
-      background:
-        rgba(5,7,10,0.65);
+      border-radius: 28px;
 
       backdrop-filter:
-        blur(10px);
+        blur(12px);
+
+      box-shadow:
+        0 8px 30px rgba(0,0,0,0.30);
     }
 
     .boton-audio {
-      width: 38px;
-      height: 38px;
+      flex: 0 0 auto;
+
+      width: 36px;
+      height: 36px;
 
       border-radius: 50%;
 
       border:
-        1px solid rgba(255,255,255,0.16);
+        1px solid rgba(255,255,255,0.18);
 
       background:
         rgba(255,255,255,0.025);
 
-      color: #eee7e3;
+      color: #f0e9e7;
 
       cursor: pointer;
 
-      font-size: 0.9rem;
+      font-size: 0.85rem;
 
       transition: 0.3s;
     }
 
     .boton-audio:hover {
-      border-color: #b36d78;
+      border-color: #d76c78;
       color: white;
     }
 
-    .tiempo {
-      min-width: 86px;
+    /* ==================================================
+       BARRA DE PROGRESO
+    ================================================== */
 
-      color: #94878a;
+    .barra-contenedor {
+      flex: 1;
+
+      display: flex;
+
+      align-items: center;
+
+      min-width: 0;
+    }
+
+    .barra {
+      appearance: none;
+      -webkit-appearance: none;
+
+      width: 100%;
+      height: 4px;
+
+      border-radius: 4px;
+
+      outline: none;
+
+      cursor: pointer;
+
+      background:
+        linear-gradient(
+          to right,
+          #d76c78 0%,
+          #d76c78 var(--progreso, 0%),
+          rgba(255,255,255,0.18) var(--progreso, 0%),
+          rgba(255,255,255,0.18) 100%
+        );
+    }
+
+    .barra::-webkit-slider-thumb {
+      -webkit-appearance: none;
+
+      width: 12px;
+      height: 12px;
+
+      border-radius: 50%;
+
+      background: #efc7cd;
+
+      border:
+        2px solid #8f3443;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 0 7px rgba(215,108,120,0.52);
+    }
+
+    .barra::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+
+      border-radius: 50%;
+
+      background: #efc7cd;
+
+      border:
+        2px solid #8f3443;
+
+      cursor: pointer;
+    }
+
+    .tiempo {
+      flex: 0 0 auto;
+
+      min-width: 78px;
 
       font-family:
         Arial,
         sans-serif;
 
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
+      font-size: 0.62rem;
+
+      letter-spacing: 0.04em;
+
+      color: #aa999c;
 
       text-align: center;
     }
 
-    /* =========================
+    /* ==================================================
        NAVEGACIÓN
-    ========================= */
+    ================================================== */
 
-    .volver {
+    .navegacion {
       position: absolute;
 
-      left: 24px;
-      bottom: 24px;
+      left: 22px;
+      bottom: 20px;
 
-      z-index: 30;
+      z-index: 45;
 
       display: flex;
-      gap: 10px;
+
+      gap: 8px;
 
       flex-wrap: wrap;
     }
@@ -431,16 +645,17 @@
 
       text-transform: uppercase;
 
-      font-size: 0.61rem;
-      letter-spacing: 0.18em;
+      font-size: 0.59rem;
 
-      padding: 12px 15px;
+      letter-spacing: 0.16em;
+
+      padding: 11px 14px;
 
       border:
         1px solid rgba(255,255,255,0.10);
 
       background:
-        rgba(5,7,10,0.52);
+        rgba(4,3,5,0.52);
 
       backdrop-filter:
         blur(8px);
@@ -450,91 +665,16 @@
 
     .boton-nav:hover {
       color: white;
-      border-color: #b36d78;
-
-      background:
-        rgba(179,109,120,0.07);
-    }
-
-    /* =========================
-       MENSAJE INICIAL
-    ========================= */
-
-    .iniciar {
-      position: absolute;
-
-      left: 50%;
-      top: 57%;
-
-      transform: translate(-50%, -50%);
-
-      z-index: 40;
-
-      text-align: center;
-
-      transition:
-        opacity 0.6s ease,
-        visibility 0.6s ease;
-    }
-
-    .iniciar.oculto {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .boton-iniciar {
-      color: #e5c7cc;
-
-      background:
-        rgba(8,5,7,0.62);
-
-      border:
-        1px solid rgba(216,120,135,0.42);
-
-      padding: 15px 25px;
-
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      letter-spacing: 0.2em;
-
-      text-transform: uppercase;
-
-      cursor: pointer;
-
-      backdrop-filter:
-        blur(10px);
-
-      transition: 0.35s;
-    }
-
-    .boton-iniciar:hover {
-      color: white;
 
       border-color: #d76c78;
 
       background:
-        rgba(179,55,75,0.12);
+        rgba(179,55,75,0.10);
     }
 
-    .iniciar p {
-      margin-top: 13px;
-
-      color: #71676a;
-
-      font-size: 0.68rem;
-
-      font-style: italic;
-
-      letter-spacing: 0.08em;
-    }
-
-    /* =========================
+    /* ==================================================
        MOBILE
-    ========================= */
+    ================================================== */
 
     @media (max-width: 700px) {
 
@@ -543,129 +683,134 @@
       }
 
       .encabezado {
-        top: 23px;
-        width: 90%;
+        top: 21px;
+
+        width: 92%;
       }
 
       .obra {
-        font-size: 0.52rem;
-        letter-spacing: 0.38em;
+        font-size: 0.49rem;
+
+        letter-spacing: 0.35em;
       }
 
       .titulo {
-        margin-top: 4px;
+        font-size:
+          clamp(
+            1.55rem,
+            8vw,
+            2.4rem
+          );
 
-        font-size: clamp(
-          1.65rem,
-          8vw,
-          2.5rem
-        );
-
-        letter-spacing: 0.17em;
+        letter-spacing: 0.15em;
       }
 
       .subtitulo {
-        font-size: 0.48rem;
-        letter-spacing: 0.32em;
+        font-size: 0.47rem;
+
+        letter-spacing: 0.30em;
       }
 
       .zona-letra {
-        top: 19%;
+        top: 18%;
 
-        width: 88vw;
-        height: 32vh;
+        width: 90vw;
+        height: 33vh;
       }
 
       .letra {
         font-size:
           clamp(
-            1rem,
-            4.7vw,
-            1.35rem
+            0.96rem,
+            4.5vw,
+            1.32rem
           );
 
-        line-height: 1.55;
+        line-height: 1.52;
       }
 
       .personajes-contenedor {
-        width: 114vw;
-        max-height: 48vh;
+        width: 115vw;
 
-        bottom: -1vh;
+        height: 48vh;
+
+        bottom: 0;
       }
 
-      .personajes {
-        max-height: 48vh;
-      }
+      .reproductor {
+        bottom: 72px;
 
-      .controles {
-        right: 12px;
-        bottom: 12px;
+        width: 82vw;
 
-        padding: 6px 8px;
-        gap: 5px;
+        padding: 7px 9px;
+
+        gap: 7px;
       }
 
       .boton-audio {
-        width: 34px;
-        height: 34px;
+        width: 32px;
+        height: 32px;
+
+        font-size: 0.75rem;
       }
 
       .tiempo {
         min-width: 66px;
-        font-size: 0.56rem;
+
+        font-size: 0.53rem;
       }
 
-      .volver {
-        left: 12px;
-        bottom: 12px;
+      .navegacion {
+        left: 50%;
+        bottom: 14px;
 
-        max-width: 150px;
+        transform:
+          translateX(-50%);
 
-        flex-direction: column;
-        gap: 6px;
+        width: 92%;
+
+        justify-content: center;
       }
 
       .boton-nav {
-        padding: 9px 11px;
+        font-size: 0.49rem;
 
-        font-size: 0.50rem;
-
-        letter-spacing: 0.12em;
+        padding: 9px 10px;
 
         text-align: center;
       }
 
-      .iniciar {
+      .inicio {
         top: 53%;
       }
 
-      .boton-iniciar {
+      .boton-inicio {
+        font-size: 0.65rem;
+
         padding: 13px 20px;
-        font-size: 0.67rem;
       }
     }
-
 
     @media (max-height: 700px) {
 
       .zona-letra {
-        top: 19%;
+        top: 18%;
         height: 28vh;
       }
 
       .personajes-contenedor {
-        max-height: 50vh;
-      }
-
-      .personajes {
-        max-height: 50vh;
+        height: 49vh;
       }
 
       .titulo {
         font-size: 2rem;
       }
+
+      .reproductor {
+        bottom: 46px;
+      }
     }
+
   </style>
 </head>
 
@@ -674,8 +819,11 @@
 
   <section class="escena">
 
-    <div class="niebla"></div>
-    <div class="resplandor"></div>
+    <!-- FONDO -->
+
+    <div class="fondo-rojo"></div>
+    <div class="viñeta"></div>
+
 
     <!-- PÉTALOS -->
 
@@ -724,19 +872,22 @@
         class="personajes"
         src="Ge-Be.png"
         alt="Gé y Be">
+
     </div>
 
 
-    <!-- PANTALLA DE INICIO -->
+    <!-- BOTÓN DE INICIO -->
 
     <div
-      class="iniciar"
-      id="iniciar">
+      class="inicio"
+      id="inicio">
 
       <button
-        class="boton-iniciar"
+        class="boton-inicio"
         onclick="comenzar()">
+
         Escuchar
+
       </button>
 
       <p>
@@ -746,52 +897,79 @@
     </div>
 
 
-    <!-- NAVEGACIÓN -->
+    <!-- REPRODUCTOR -->
 
-    <nav class="volver">
-
-      <a
-        class="boton-nav"
-        href="../novela/">
-        ← Novela
-      </a>
-
-      <a
-        class="boton-nav"
-        href="../">
-        Menú
-      </a>
-
-    </nav>
-
-
-    <!-- CONTROLES -->
-
-    <div class="controles">
+    <div class="reproductor">
 
       <button
         class="boton-audio"
-        id="play-pausa"
+        id="play"
         onclick="alternarPlay()"
         aria-label="Reproducir o pausar">
+
         ▶
+
       </button>
+
+
+      <div class="barra-contenedor">
+
+        <input
+          type="range"
+          class="barra"
+          id="barra"
+          min="0"
+          max="100"
+          value="0"
+          step="0.1"
+          aria-label="Posición de la canción">
+
+      </div>
+
+
+      <div
+        class="tiempo"
+        id="tiempo">
+
+        0:00 / 3:33
+
+      </div>
+
 
       <button
         class="boton-audio"
         id="mute"
         onclick="alternarMute()"
         aria-label="Activar o silenciar sonido">
+
         🔊
+
       </button>
 
-      <div
-        class="tiempo"
-        id="tiempo">
-        0:00 / 3:33
-      </div>
-
     </div>
+
+
+    <!-- NAVEGACIÓN -->
+
+    <nav class="navegacion">
+
+      <a
+        class="boton-nav"
+        href="../novela/">
+
+        ← Novela
+
+      </a>
+
+      <a
+        class="boton-nav"
+        href="../">
+
+        Menú
+
+      </a>
+
+    </nav>
 
 
     <!-- AUDIO -->
@@ -807,9 +985,9 @@
 
   <script>
 
-    /* ============================================
-       AUDIO
-    ============================================ */
+    /* ==================================================
+       ELEMENTOS
+    ================================================== */
 
     const audio =
       document.getElementById("audio");
@@ -818,20 +996,25 @@
       document.getElementById("letra");
 
     const botonPlay =
-      document.getElementById("play-pausa");
+      document.getElementById("play");
 
     const botonMute =
       document.getElementById("mute");
 
-    const iniciar =
-      document.getElementById("iniciar");
+    const inicio =
+      document.getElementById("inicio");
 
     const tiempo =
       document.getElementById("tiempo");
 
+    const barra =
+      document.getElementById("barra");
+
+
     const volumenNormal = 0.27;
 
-    audio.volume = volumenNormal;
+    audio.volume =
+      volumenNormal;
 
 
     let silenciado =
@@ -839,29 +1022,30 @@
         "sonidoSilenciado"
       ) === "true";
 
-    audio.muted = silenciado;
+
+    audio.muted =
+      silenciado;
+
 
     actualizarMute();
 
 
-    /* ============================================
+    /* ==================================================
        LETRA SINCRONIZADA
-
-       IMPORTANTE:
-       Estos son los tiempos que vamos a ajustar
-       después de probarla en vivo.
-
-       inicio = segundo donde aparece
-       fin    = segundo donde desaparece
-    ============================================ */
-
+    ================================================== */
 
     const bloques = [
 
+      /* ESTROFA 1
+         0:30 — 0:42
+      */
+
       {
-        inicio: 12,
-        fin: 31,
+        inicio: 30,
+        fin: 42,
+
         tipo: "verso",
+
         html:
           '<span class="palabra-principal">Caminos</span>' +
           'Que parecen avanzar,<br>' +
@@ -869,10 +1053,17 @@
           'Al mismo lugar.'
       },
 
+
+      /* ESTROFA 2
+         0:44.5 — 0:57
+      */
+
       {
-        inicio: 32,
-        fin: 52,
+        inicio: 44.5,
+        fin: 57,
+
         tipo: "verso",
+
         html:
           '<span class="palabra-principal">Sombras</span>' +
           'Sin rostros que mostrar<br>' +
@@ -880,39 +1071,67 @@
           'Te envuelven y se van.'
       },
 
+
+      /* PRE CORO
+         0:58 — 1:11
+      */
+
       {
-        inicio: 53,
-        fin: 67,
+        inicio: 58,
+        fin: 71,
+
         tipo: "pre",
+
         html:
           'Y aunque vuelva a caminar,<br>' +
           'Algo en mí no vuelve igual.'
       },
 
+
+      /* CORO PARTE 1
+         1:11.5 — 1:25
+      */
+
       {
-        inicio: 68,
-        fin: 89,
+        inicio: 71.5,
+        fin: 85,
+
         tipo: "coro",
+
         html:
           'Pero al repetir un ciclo más<br>' +
           'Sientes que todo es oscuridad en ti<br>' +
           'No es así...'
       },
 
+
+      /* CORO PARTE 2
+         1:25.5 — 1:41
+      */
+
       {
-        inicio: 90,
-        fin: 108,
+        inicio: 85.5,
+        fin: 101,
+
         tipo: "coro",
+
         html:
           'Otra realidad se mostrará<br>' +
           'Si logras mirar más allá de ti<br>' +
           'Y dentro de ti'
       },
 
+
+      /* ESTROFA 3
+         1:54 — 2:07
+      */
+
       {
-        inicio: 109,
+        inicio: 114,
         fin: 127,
+
         tipo: "verso",
+
         html:
           '<span class="palabra-principal">Flores</span>' +
           'nacen al pasar<br>' +
@@ -920,10 +1139,17 @@
           'y otras morirán.'
       },
 
+
+      /* ESTROFA 4
+         2:08 — 2:21
+      */
+
       {
         inicio: 128,
-        fin: 147,
+        fin: 141,
+
         tipo: "verso",
+
         html:
           '<span class="palabra-principal">Huellas</span>' +
           'Vuelven hacia atrás,<br>' +
@@ -931,29 +1157,50 @@
           'y vuelven a empezar.'
       },
 
+
+      /* PRE CORO 2
+         2:22 — 2:35
+      */
+
       {
-        inicio: 148,
-        fin: 162,
+        inicio: 142,
+        fin: 155,
+
         tipo: "pre",
+
         html:
           'Y aunque vuelva a caminar,<br>' +
           'Algo en mí no vuelve igual.'
       },
 
+
+      /* CORO FINAL PARTE 1
+         2:35.5 — 2:48
+      */
+
       {
-        inicio: 163,
-        fin: 184,
+        inicio: 155.5,
+        fin: 168,
+
         tipo: "coro",
+
         html:
           'Pero al repetir un ciclo más<br>' +
           'Sientes que todo es oscuridad en ti<br>' +
           'No es así...'
       },
 
+
+      /* CORO FINAL PARTE 2
+         2:49 — 3:04
+      */
+
       {
-        inicio: 185,
-        fin: 207,
+        inicio: 169,
+        fin: 184,
+
         tipo: "coro",
+
         html:
           'Otra realidad se mostrará<br>' +
           'Si logras mirar más allá de ti<br>' +
@@ -966,49 +1213,52 @@
     let bloqueActual = -1;
 
 
-    /* ============================================
+    /* ==================================================
        COMENZAR
-    ============================================ */
+    ================================================== */
 
     function comenzar() {
 
-      iniciar.classList.add("oculto");
+      inicio.classList.add(
+        "oculto"
+      );
 
       audio.currentTime = 0;
 
       audio.play()
         .then(() => {
 
-          botonPlay.textContent = "❚❚";
+          botonPlay.textContent =
+            "❚❚";
 
         })
         .catch(() => {
 
-          botonPlay.textContent = "▶";
+          botonPlay.textContent =
+            "▶";
 
         });
     }
 
 
-    /* ============================================
+    /* ==================================================
        PLAY / PAUSA
-    ============================================ */
+    ================================================== */
 
     function alternarPlay() {
 
-      iniciar.classList.add("oculto");
+      inicio.classList.add(
+        "oculto"
+      );
 
       if (audio.paused) {
 
         audio.play();
 
-        botonPlay.textContent = "❚❚";
-
       } else {
 
         audio.pause();
 
-        botonPlay.textContent = "▶";
       }
     }
 
@@ -1017,7 +1267,8 @@
       "play",
       () => {
 
-        botonPlay.textContent = "❚❚";
+        botonPlay.textContent =
+          "❚❚";
       }
     );
 
@@ -1026,20 +1277,23 @@
       "pause",
       () => {
 
-        botonPlay.textContent = "▶";
+        botonPlay.textContent =
+          "▶";
       }
     );
 
 
-    /* ============================================
+    /* ==================================================
        MUTE
-    ============================================ */
+    ================================================== */
 
     function alternarMute() {
 
-      silenciado = !silenciado;
+      silenciado =
+        !silenciado;
 
-      audio.muted = silenciado;
+      audio.muted =
+        silenciado;
 
       localStorage.setItem(
         "sonidoSilenciado",
@@ -1059,16 +1313,17 @@
     }
 
 
-    /* ============================================
-       ACTUALIZAR LETRA
-    ============================================ */
+    /* ==================================================
+       LETRA
+    ================================================== */
 
     function actualizarLetra() {
 
       const segundo =
         audio.currentTime;
 
-      let encontrado = -1;
+      let encontrado =
+        -1;
 
 
       for (
@@ -1083,70 +1338,91 @@
         ) {
 
           encontrado = i;
+
           break;
         }
       }
 
 
       if (
-        encontrado !== bloqueActual
+        encontrado === bloqueActual
       ) {
 
-        letra.classList.remove(
-          "visible"
-        );
+        return;
+      }
 
 
-        setTimeout(() => {
-
-          bloqueActual =
-            encontrado;
-
-
-          if (encontrado === -1) {
-
-            letra.innerHTML = "";
-
-            letra.className =
-              "letra";
-
-            return;
-          }
+      letra.classList.remove(
+        "visible"
+      );
 
 
-          const bloque =
-            bloques[encontrado];
+      bloqueActual =
+        encontrado;
 
 
-          letra.innerHTML =
-            bloque.html;
+      setTimeout(() => {
 
+        /*
+          Comprobamos otra vez para evitar
+          que una transición atrasada muestre
+          una estrofa equivocada al mover
+          manualmente la barra.
+        */
+
+        if (
+          bloqueActual !== encontrado
+        ) {
+
+          return;
+        }
+
+
+        if (
+          encontrado === -1
+        ) {
+
+          letra.innerHTML = "";
 
           letra.className =
             "letra";
 
+          return;
+        }
 
-          if (
-            bloque.tipo === "coro"
-          ) {
+
+        const bloque =
+          bloques[encontrado];
+
+
+        letra.innerHTML =
+          bloque.html;
+
+
+        letra.className =
+          "letra";
+
+
+        if (
+          bloque.tipo === "coro"
+        ) {
+
+          letra.classList.add(
+            "coro"
+          );
+        }
+
+
+        requestAnimationFrame(
+          () => {
 
             letra.classList.add(
-              "coro"
+              "visible"
             );
           }
+        );
 
-
-          requestAnimationFrame(
-            () => {
-
-              letra.classList.add(
-                "visible"
-              );
-            }
-          );
-
-        }, 350);
-      }
+      }, 220);
     }
 
 
@@ -1156,9 +1432,9 @@
     );
 
 
-    /* ============================================
-       TIEMPO
-    ============================================ */
+    /* ==================================================
+       FORMATO DE TIEMPO
+    ================================================== */
 
     function formatoTiempo(
       segundos
@@ -1171,39 +1447,77 @@
         return "0:00";
       }
 
+
       const minutos =
         Math.floor(
           segundos / 60
         );
 
-      const resto =
+
+      const segundosRestantes =
         Math.floor(
           segundos % 60
         );
 
+
       return (
         minutos +
         ":" +
-        resto
+        segundosRestantes
           .toString()
           .padStart(2, "0")
       );
     }
 
 
+    /* ==================================================
+       ACTUALIZAR BARRA
+    ================================================== */
+
+    function actualizarBarra() {
+
+      if (
+        !Number.isFinite(
+          audio.duration
+        ) ||
+        audio.duration <= 0
+      ) {
+
+        return;
+      }
+
+
+      const porcentaje =
+        (
+          audio.currentTime /
+          audio.duration
+        ) * 100;
+
+
+      barra.value =
+        porcentaje;
+
+
+      barra.style.setProperty(
+        "--progreso",
+        porcentaje + "%"
+      );
+
+
+      tiempo.textContent =
+        formatoTiempo(
+          audio.currentTime
+        ) +
+        " / " +
+        formatoTiempo(
+          audio.duration
+        );
+    }
+
+
     audio.addEventListener(
       "timeupdate",
-      () => {
-
-        tiempo.textContent =
-          formatoTiempo(
-            audio.currentTime
-          ) +
-          " / " +
-          formatoTiempo(
-            audio.duration
-          );
-      }
+      actualizarBarra
     );
 
 
@@ -1211,18 +1525,56 @@
       "loadedmetadata",
       () => {
 
-        tiempo.textContent =
-          "0:00 / " +
-          formatoTiempo(
-            audio.duration
-          );
+        actualizarBarra();
       }
     );
 
 
-    /* ============================================
+    /* ==================================================
+       ADELANTAR / ATRASAR
+    ================================================== */
+
+    barra.addEventListener(
+      "input",
+      () => {
+
+        if (
+          !Number.isFinite(
+            audio.duration
+          )
+        ) {
+
+          return;
+        }
+
+
+        const nuevoTiempo =
+          (
+            barra.value / 100
+          ) *
+          audio.duration;
+
+
+        audio.currentTime =
+          nuevoTiempo;
+
+
+        bloqueActual = -2;
+
+        actualizarLetra();
+
+        actualizarBarra();
+
+        inicio.classList.add(
+          "oculto"
+        );
+      }
+    );
+
+
+    /* ==================================================
        FINAL
-    ============================================ */
+    ================================================== */
 
     audio.addEventListener(
       "ended",
@@ -1231,26 +1583,28 @@
         botonPlay.textContent =
           "▶";
 
+
         letra.classList.remove(
           "visible"
         );
 
+
         setTimeout(() => {
 
           letra.innerHTML =
-            "Todo vuelve a comenzar.";
+            "";
 
           letra.className =
-            "letra visible";
+            "letra";
 
-        }, 900);
+        }, 600);
       }
     );
 
 
-    /* ============================================
+    /* ==================================================
        PÉTALOS
-    ============================================ */
+    ================================================== */
 
     const contenedorPetalos =
       document.getElementById(
@@ -1262,8 +1616,8 @@
 
       const cantidad =
         window.innerWidth < 700
-          ? 18
-          : 30;
+          ? 20
+          : 34;
 
 
       for (
@@ -1277,35 +1631,42 @@
             "span"
           );
 
+
         petalo.className =
           "petalo";
 
 
         const tam =
           8 +
-          Math.random() * 20;
+          Math.random() * 23;
+
 
         const x =
           Math.random() * 100;
 
+
         const duracion =
           9 +
-          Math.random() * 12;
+          Math.random() * 13;
+
 
         const delay =
-          Math.random() * -18;
+          Math.random() * -20;
+
 
         const deriva =
-          -90 +
-          Math.random() * 180;
+          -100 +
+          Math.random() * 200;
+
 
         const opacidad =
-          0.25 +
-          Math.random() * 0.65;
+          0.24 +
+          Math.random() * 0.68;
+
 
         const blur =
-          Math.random() < 0.18
-            ? 2.2
+          Math.random() < 0.22
+            ? 2.8
             : 0;
 
 
@@ -1314,30 +1675,36 @@
           tam + "px"
         );
 
+
         petalo.style.setProperty(
           "--x",
           x + "%"
         );
+
 
         petalo.style.setProperty(
           "--duracion",
           duracion + "s"
         );
 
+
         petalo.style.setProperty(
           "--delay",
           delay + "s"
         );
+
 
         petalo.style.setProperty(
           "--deriva",
           deriva + "px"
         );
 
+
         petalo.style.setProperty(
           "--opacidad",
           opacidad
         );
+
 
         petalo.style.setProperty(
           "--blur",
@@ -1355,9 +1722,9 @@
     crearPetalos();
 
 
-    /* ============================================
-       TECLADO
-    ============================================ */
+    /* ==================================================
+       ESPACIO = PLAY / PAUSA
+    ================================================== */
 
     document.addEventListener(
       "keydown",
