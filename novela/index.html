@@ -58,6 +58,28 @@
       letter-spacing: 2px;
     }
 
+    /* ---------- PORTADA DE LA NOVELA ---------- */
+
+    .portada-seccion {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 20px 70px;
+    }
+
+    .portada-novela {
+      display: block;
+      width: min(78vw, 520px);
+      height: auto;
+      border-radius: 3px;
+      box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(215, 108, 120, 0.06);
+    }
+
+    /* ---------- LECTOR ---------- */
+
     .lector {
       width: min(94%, 1100px);
       margin: 0 auto;
@@ -160,6 +182,14 @@
         letter-spacing: 4px;
       }
 
+      .portada-seccion {
+        padding: 5px 18px 50px;
+      }
+
+      .portada-novela {
+        width: min(88vw, 440px);
+      }
+
       .lector {
         width: 100%;
       }
@@ -202,6 +232,21 @@
 
   </header>
 
+
+  <!-- PORTADA DE LA NOVELA -->
+
+  <section class="portada-seccion">
+
+    <img
+      class="portada-novela"
+      src="Portada%20novela.jpg"
+      alt="Portada de la novela Donde florece la soledad"
+    >
+
+  </section>
+
+
+  <!-- LECTOR PDF -->
 
   <main class="lector">
 
